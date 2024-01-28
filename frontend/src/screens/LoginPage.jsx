@@ -10,6 +10,12 @@ const LoginPage = () => {
         const [password, setPassword] = useState('');
 
         const LOGIN_URL = "http://localhost:8000/content/login"
+
+        const navi = useNavigate();
+
+        const goSearchPage = () => {
+          navi('/search')
+        }
  
       
         const handleSubmit = (e) => {
@@ -19,6 +25,9 @@ const LoginPage = () => {
               password
             })
             .then((response) => {
+              if(response.status=== 200){
+                goSearchPage();
+              }
               return response.status
             })
             .catch((error) => {

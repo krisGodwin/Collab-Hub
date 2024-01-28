@@ -1,0 +1,63 @@
+.creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 150px;
+    padding-top: 100px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #FAF9F6;
+    margin-top: 10px;
+    text-align: left; /* Align text to the left within the .creator div */
+  }
+  
+  .creator-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Align text to the left within the .creator-details div */
+  }
+  
+  .creator-details p{
+    margin: 8px 0;
+    font-size: 25px;
+  }
+
+  .creator img {
+    width: 400px;
+    margin-right: 20px;
+    border-radius: 6px;
+  }
+  
+  .creator-desc {
+    text-align: left;
+    align-self: flex-start;
+    max-width: 500px;
+  }
+  
+  
+  .card-content-type p {
+    color: white;
+    background-color: black;
+    margin: 5px;
+    padding: 8px 12px;
+    display: inline-block;
+    border-radius: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: medium;
+    transition: background-color 0.3s; /* Add transition for a smooth hover effect */
+  }
+  
+  .card-content-type p:hover {
+    background-color: #333; /* Change the background color on hover */
+  }
+
+  .creator-desc p{
+    margin-top: 30px;
+  }
+
+  .creator-desc svg{
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }

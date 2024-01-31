@@ -44,12 +44,12 @@ const Profile = () => {
         return (
           <>
             <Navbar />
-            <div className="profileDiv">
-              <div className="profile-container">
+            <div className="loginDiv">
+              <div className="login-container">
                 <img src="./logo.png" alt="" />
-                <h2 className="profile-title">Create your post</h2>
-                <form onSubmit={handleSubmit} className="profile-form">
-                  <div className="profile-input-block">
+                <h2 className="login-title">Create Your Post</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                  <div className="input-block">
                     <input
                       type="text"
                       value={name}
@@ -59,35 +59,22 @@ const Profile = () => {
                       required
                       spellCheck="false"
                     />
-                    <span className="placeholder">Name</span>
+                    <span className="placeholder">name</span>
                   </div>
-                  {/* <div className="input-block">
-                    <textarea
-                      rows={10} 
-                      cols={85} 
-                      value={description}
-                      onChange={handleDescriptionChange}
-                      name="text"
-                      id="description-txt"
-                      required
-                      spellCheck="false"
-                    />
-                    <span className="placeholder">Description</span> */}
-                  {/* </div> */}
-                  <div className="profile-input-block">
+                  <div className="input-block">
                     <input
-                      type="textarea"
+                      type="password"
                       value={description}
                       onChange={handleDescriptionChange}
-                      name="text"
-                      id="description-text"
+                      name="password"
+                      id="password-text"
                       required
                       spellCheck="false"
                     />
                     <span className="placeholder">Description</span>
                   </div>
-                  <button type="submit" className="profile-button">
-                    profile
+                  <button type="submit" className="login-button">
+                    Login
                   </button>
                 </form>
               </div>

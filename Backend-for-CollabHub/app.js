@@ -7,11 +7,17 @@ const path = require('path');
 const mongoose = require("mongoose");
 const ContentCreatorRoute = require("./routes/ContentCreatorRoute.js");
 const HiringRoute = require("./routes/HiringRoute.js");
+
+const cookieParser = require("cookie-parser")
+
 mongoose.connect(process.env.MONGODB_URL);
 mongoose.Promise = global.Promise;
+
 app.use(morgan("dev"));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -24,6 +30,9 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use(cookieParser());
+
 app.use("/content",ContentCreatorRoute);
 app.use("/hiring",HiringRoute);
 app.use((req, res, next) => {
@@ -40,4 +49,5 @@ app.use((req, res, next) => {
       },
     });
   });
+
 module.exports = app;

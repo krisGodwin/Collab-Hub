@@ -6,7 +6,8 @@ const ContentCreatorModel = require("../models/ContentCreatorModel.js");
 const HiringModel = require("../models/HiringModel.js");
 const PostsModel = require("../models/PostModel.js");
 const UploadFile = require("../middlewares/cloudinary_service.js");
-const {UserModel,UserType} = require("../models/UserModel.js")
+const {UserModel,UserType} = require("../models/UserModel.js");
+const { generateToken } = require("../utils/generateToken.js");
 //const MessageModel = require("../models/MessageModel.js");
 exports.Register = async(req,res) => {
     try {
@@ -56,10 +57,17 @@ exports.Login = async(req,res) => {
                 "contentCreator" : true
             }
         }
-        jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
-            if (err) throw err;
-            res.status(200).json({_id : ContentCreatorPresent._id,token : token})
+        const token = generateToken(res, ContentCreatorPresent._id)
+
+        res.status(200).json({
+            _token: token,
+            _id: ContentCreatorPresent._id,
+            email: ContentCreatorPresent.email,
         })
+        // jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+        //     if (err) throw err;
+        //     res.status(200).json({_id : ContentCreatorPresent._id,token : token})
+        // })
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})

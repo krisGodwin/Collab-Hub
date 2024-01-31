@@ -1,153 +1,150 @@
-.profileDiv {
-    padding-bottom: 150px;
-    padding-top: 10px;
-    background-color: #0A1828 !important;
-  }
-  
-  .profile-container {
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    border: 2px solid  #BFA181 !important;
-    border-radius: 8px;
-    margin-top: 100px;
-    text-align: center;
-    border-radius: 6px;
-    min-height: 70vh;
-    max-height: auto;
-    font-family: 'Ubuntu', sans-serif;
-    background-color: #0A1828 !important;
-    color: #BFA181 !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .profile-container img {
-    width: 100px;
-    background-color: #0A1828 !important;
-  }
-  
-  .profile-title {
-    text-align: center;
-    margin-bottom: 20px;
-    background-color: #0A1828 !important;
-  }
-  
-  .profile-form {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    background-color: #0A1828 !important;
-  }
-  
-  .profile-label {
-    margin-bottom: 10px;
-    background-color: #0A1828 !important;
-    align-items: center;
+.loginDiv {
+  padding-bottom: 150px;
+  padding-top: 150px;
+  background-color: #0A1828 !important;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid  #BFA181 !important;
+  border-radius: 8px;
+  margin-top: 100px;
+  text-align: center;
+  border-radius: 6px;
+  height: 70vh;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #0A1828 !important;
+  color: #BFA181 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container img {
+  width: 100px;
+  background-color: #0A1828 !important;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #0A1828 !important;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background-color: #0A1828 !important;
+}
+
+.login-label {
+  margin-bottom: 10px;
+  background-color: #0A1828 !important;
+  align-items: center;
+}
+
+.login-input {
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid black; /* Set initial border-bottom to transparent */
+  transition: border-bottom 0.2s; /* Add transition effect for smoother appearance */
+
+  &::placeholder {
+    color: transparent;
   }
 
-  .profile-input {
-    padding: 8px;
-    margin-bottom: 15px;
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid black; /* Set initial border-bottom to transparent */
-    transition: border-bottom 0.2s; /* Add transition effect for smoother appearance */
-  
-    &::placeholder {
-      color: transparent;
-    }
-  
-    &:focus {
-      border-bottom: 2px solid black; /*Set border-bottom to your desired color on focus */
-    }
+  &:focus {
+    border-bottom: 2px solid black; /*Set border-bottom to your desired color on focus */
   }
-  
-  
-  .profile-button {
-    background-color: transparent;
-    color:#BFA181  !important;
-    padding: 10px;
-    cursor: pointer;
-    border: 2px solid #BFA181;
-    border-radius: 4px;
-    font-size: 20px;
-    border-radius: 4px;
-    margin-top: 20px;
-    width: 80%;
-  }
-  
-
-  .signup{
-    margin-top: 30px;
-    background-color: #0A1828
-  }
-
-  a {
-    color: #BFA181 !important;
-    background-color: #0A1828
-  }
-
-  a:hover{
-    color:turquoise !important;
-  }
+}
 
 
-  div.input-block {
-    position: relative;
-    background-color: #0A1828 !important;
-  }
-  
-  div.profile-input-block input {
-    font-size: 1rem;
-    color: #BFA181; /* Updated text color */
-    background-color: #0A1828 !important;
-    width: 650px;
-    padding: 15px 15px;
-    border-radius: 1rem;
-    border: 2px solid #BFA181; /* Updated border color */
-    outline: none;
-    margin-bottom: 15px;
-    word-break: break-all;
-  }
-  
-  div.input-block span.placeholder {
-    position: absolute;
-    margin: 17px 0;
-    padding: 0 4px;
-    color: #BFA181; /* Updated placeholder text color */
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
-    top: 0;
-    left: 17px;
-    transition: all 0.2s;
-    transform-origin: 0% 0%;
-    background-color: #0A1828 !important;
-    pointer-events: none;
-  }
-  
-  div.input-block input:valid + span.placeholder,
-  div.input-block input:focus + span.placeholder {
-    transform: scale(0.8) translateY(-30px);
-    background-color: #0A1828 !important;
-  }
-  
-  div.input-block input:focus {
-    color: #BFA181; /* Updated focused text color */
-    border-color: #BFA181; /* Updated focused border color */
-  }
-  
-  div.input-block input:focus + span.placeholder {
-    color: #BFA181; /* Updated focused placeholder text color */
-  }
-  
+.login-button {
+  background-color: transparent;
+  color: #BFA181 !important;
+  padding: 10px;
+  cursor: pointer;
+  border: 2px solid #BFA181;
+  border-radius: 4px;
+  font-size: 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  width: 200px;
+}
+
+
+.signup{
+  margin-top: 30px;
+  background-color: #0A1828
+}
+
+a {
+  color: #BFA181 !important;
+  background-color: #0A1828
+}
+
+a:hover{
+  color:turquoise !important;
+}
+
+
+div.input-block {
+  position: relative;
+  background-color: #0A1828 !important;
+}
+
+div.input-block input {
+  font-size: 1rem;
+  color: #BFA181; /* Updated text color */
+  background-color: #0A1828 !important;
+  width: 350px;
+  padding: 15px 15px;
+  border-radius: 1rem;
+  border: 2px solid #BFA181; /* Updated border color */
+  outline: none;
+  margin-bottom: 15px;
+}
+
+div.input-block span.placeholder {
+  position: absolute;
+  margin: 17px 0;
+  padding: 0 4px;
+  color: #BFA181; /* Updated placeholder text color */
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  top: 0;
+  left: 17px;
+  transition: all 0.2s;
+  transform-origin: 0% 0%;
+  background-color: #0A1828 !important;
+  pointer-events: none;
+}
+
+div.input-block input:valid + span.placeholder,
+div.input-block input:focus + span.placeholder {
+  transform: scale(0.8) translateY(-30px);
+  background-color: #0A1828 !important;
+}
+
+div.input-block input:focus {
+  color: #BFA181; /* Updated focused text color */
+  border-color: #BFA181; /* Updated focused border color */
+}
+
+div.input-block input:focus + span.placeholder {
+  color: #BFA181; /* Updated focused placeholder text color */
+}
 
 
 
-  
+

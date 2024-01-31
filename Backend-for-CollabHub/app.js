@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use("/content",ContentCreatorRoute);
-app.use("/hiring",HiringRoute);
+app.use("/hiring",res);
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;

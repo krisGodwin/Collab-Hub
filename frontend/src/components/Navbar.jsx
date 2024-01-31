@@ -22,6 +22,10 @@ const Navbar = () => {
     navigate('/profile')
   }
 
+  const goPostPage = () => {
+    navigate('/post')
+  }
+
 
   return (
     <div  className="navbar" >
@@ -33,6 +37,7 @@ const Navbar = () => {
             <ul>
                 <li onClick={goHomePage}>Homepage</li>
                 <li onClick={goLoginPage}>Login</li>
+                <li onClick={goPostPage}>Post</li>
                 <li onClick={goSearchPage}>Search</li>
                 <li onClick={goProfilePage}>Profile</li>
             </ul>

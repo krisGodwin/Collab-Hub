@@ -35,6 +35,7 @@
   }
   
   .card-content {
+    color: white;
     padding: 16px;
   }
   
@@ -44,18 +45,18 @@
   }
   
   .card-description {
-    color: #555;
     margin-bottom: 8px;
   }
 
   .card-content-type{
     display: flex;
     flex-wrap: wrap;
+    
   }
 
   .card-content-type p {
     color: white;
-    background-color: black;
+    background-color: black !important;
     margin: 5px;
     padding: 8px 12px;
     display: inline-block;
@@ -71,7 +72,7 @@
   }
   
   .card-button {
-    background-color: #007bff;
+    background-color: black !important; 
     color: #fff;
     padding: 8px 16px;
     border: none;
@@ -90,3 +91,29 @@
  .social-media svg{
   margin-right: 30px
  }
+
+
+ .search-container {
+  display: flex;
+  max-width: 320px; /* Adjust as needed */
+  margin: auto;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: inherit;
+  color: white;
+}
+
+.search-button {
+  background-color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+}

@@ -74,10 +74,15 @@ const Profile = () => {
                     <span className="placeholder">Description</span>
                   </div>
                   <button type="submit" className="login-button">
-                    Login
+                    Post
                   </button>
                 </form>
               </div>
+            </div>
+            <div className="temp">
+              <button type="submit" className="reccomendation-button">
+                      Browse Recommendations
+              </button>
             </div>
           </>
   )

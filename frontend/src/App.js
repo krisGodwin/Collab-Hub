@@ -7,6 +7,7 @@ import Signup from './screens/Signup';
 import SearchCreators from './screens/SearchCreators';
 import Creator from './screens/Creator';
 import Profile from './screens/Profile';
+import Post from './screens/Post';
 import './App.css';
 
 function App() {
@@ -14,13 +15,14 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/' element={<LoginPage />}></Route>
+          <Route path='/' element={<Homepage />}></Route>
           <Route path="/navbar" element={<Navbar/>}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/search' element={<SearchCreators />}></Route>
           <Route path='/search/:id' element={<Creator />}></Route>
           <Route path='/profile' element={<Profile />}></Route>
+          <Route path='/post' element={<Post />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

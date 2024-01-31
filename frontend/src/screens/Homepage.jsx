@@ -5,6 +5,7 @@ const Homepage = () => {
   return (
     <>
         <Navbar />
+        <h1>Welcome To CollabHub</h1>
     </>
   )
 }

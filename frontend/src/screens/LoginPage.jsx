@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import '../css/loginpage.css'
 
 const LoginPage = () => {
@@ -26,7 +28,10 @@ const LoginPage = () => {
             })
             .then((response) => {
               if(response.status=== 200){
+                toast.success("User Logged in");
                 goSearchPage();
+              } else {
+                toast.error("Invalid credentials");
               }
               return response.status
             })
@@ -91,6 +96,7 @@ const LoginPage = () => {
                 </p>
               </div>
             </div>
+            <ToastContainer />
           </>
         );
       };

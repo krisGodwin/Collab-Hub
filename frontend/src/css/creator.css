@@ -9,6 +9,7 @@
     background-color: #FAF9F6;
     margin-top: 10px;
     text-align: left; /* Align text to the left within the .creator div */
+    color: white;
   }
   
   .creator-details {

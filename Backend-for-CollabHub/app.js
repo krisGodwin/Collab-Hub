@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 const ContentCreatorRoute = require("./routes/ContentCreatorRoute.js");
 const HiringRoute = require("./routes/HiringRoute.js");
 
+const cors = require('cors')
+
 const cookieParser = require("cookie-parser")
 
 mongoose.connect(process.env.MONGODB_URL);
@@ -15,21 +17,28 @@ mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
 
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
+
+app.use(cors(corsConfig));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === "OPTIONS") {
-      res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-      return res.status(200).json({});
-    }
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//     res.header(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     );
+//     if (req.method === "OPTIONS") {
+//       res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+//       return res.status(200).json({});
+//     }
+//     next();
+// });
 
 app.use(cookieParser());
 

@@ -18,14 +18,18 @@ const LoginPage = () => {
         const goSearchPage = () => {
           navi('/search')
         }
- 
-      
+
         const handleSubmit = (e) => {
             e.preventDefault()
             axios.post(LOGIN_URL, {
               email,
               password
-            })
+            }, {
+              withCredentials: true,
+              headers: {
+                  'Access-Control-Allow-Origin': '*', 
+                  'Content-Type': 'application/json'}
+              })
             .then((response) => {
               if(response.status=== 200){
                 toast.success("User Logged in");

@@ -11,6 +11,11 @@ const Profile = () => {
 
     const PROFILE_URL = "http://localhost:8000/content/profile"
 
+    const navigate = useNavigate();
+
+    const goCreator = () => {
+      navigate('/post')
+    }
   
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,7 +39,6 @@ const Profile = () => {
       setDescription(e.target.value);
     };
 
-    const navigate = useNavigate();
     // eslint-disable-next-line
     const onSignup = () => {
       navigate('/signup')
@@ -80,7 +84,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="temp">
-              <button type="submit" className="reccomendation-button">
+              <button onClick={goCreator} type="submit" className="reccomendation-button">
                       Browse Recommendations
               </button>
             </div>

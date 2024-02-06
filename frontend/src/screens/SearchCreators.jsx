@@ -3,11 +3,22 @@ import Navbar from '../components/Navbar'
 import '../css/searchpage.css'
 import data from '../data.js'
 import Card from '../components/Card.jsx'
-import { useState } from 'react'
+import { useState} from 'react'
+
 
 const SearchCreators = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(data);
+
+  // const [isCreatorLoggedIn, setIsCreatorLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem('user')
+
+  //   if(user === "CC"){
+  //     setIsCreatorLoggedIn(true)
+  //   }
+  // },[isCreatorLoggedIn])
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -24,7 +35,7 @@ const SearchCreators = () => {
 
   return (
     <>
-        <Navbar />
+         <Navbar  />
         <div class="search-container">
           <input
               type="text"

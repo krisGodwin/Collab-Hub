@@ -16,6 +16,7 @@ const Profile = () => {
     const goCreator = () => {
       navigate('/post')
     }
+
   
     const handleSubmit = (e) => {
         e.preventDefault()

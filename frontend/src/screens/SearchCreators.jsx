@@ -10,15 +10,6 @@ const SearchCreators = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(data);
 
-  // const [isCreatorLoggedIn, setIsCreatorLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   const user = localStorage.getItem('user')
-
-  //   if(user === "CC"){
-  //     setIsCreatorLoggedIn(true)
-  //   }
-  // },[isCreatorLoggedIn])
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);

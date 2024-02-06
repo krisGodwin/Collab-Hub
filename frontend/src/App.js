@@ -8,6 +8,7 @@ import SearchCreators from './screens/SearchCreators';
 import Creator from './screens/Creator';
 import Profile from './screens/Profile';
 import Post from './screens/Post';
+import Recommendations from './screens/Recommendations';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/search/:id' element={<Creator />}></Route>
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/post' element={<Post />}></Route>
+          <Route path='/recommendation' element={<Recommendations />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

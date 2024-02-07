@@ -2,6 +2,7 @@ const router = require("express").Router();
 const ContentCreatorController = require("../controllers/ContentCreatorController.js")
 const AuthCheckerContent = require("../middlewares/ca_content.js");
 const fileUpload = require("../middlewares/upload.js");
+
 router.post("/register",ContentCreatorController.Register);
 router.post("/login",ContentCreatorController.Login);
 router.get("/profile",AuthCheckerContent,ContentCreatorController.Profile);

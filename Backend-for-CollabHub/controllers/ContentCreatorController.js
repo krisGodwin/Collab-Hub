@@ -79,8 +79,10 @@ exports.Profile = async(req,res) => {
 }
 exports.AddContent = async(req,res) => {
     const {title,description,contenttypes} = req.body;
-    const image_file = req.file.filename;
+    // console.log(req.body.filename)
+    const image_file = req.body.filename;
     await UploadFile("./images/" + image_file)
+    console.log("Hi")
     .then(async(publicID,err)=>{
         if(err){
             return res.status(400).json({message : "Could not create the post"});

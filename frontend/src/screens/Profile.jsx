@@ -6,16 +6,17 @@ import axios from 'axios';
 import '../css/profile.css';
 
 const Profile = () => {
-  const [name, setName] = useState('');
+  const [title, setName] = useState('');
   const [description, setDescription] = useState('');
   const [checked, setChecked] = useState([]);
+  const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
   // eslint-disable-next-line
-  const CLOUD_NAME = "dt0ndopcz"
+  // const CLOUD_NAME = "dt0ndopcz"
 
   const navigate = useNavigate();
 
-  const PROFILE_URL = "http://localhost:8000/content/profile";
+  const PROFILE_URL = "http://localhost:8000/content/addpost";
 
   const checkList = ["Entertainment", "Music", "Sport", "Lifestyle"];
 
@@ -32,12 +33,28 @@ const Profile = () => {
     }
   };
 
+  const handleImage = (e) =>{
+    const file = e.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+}
+
+  const setFileToBase = (file) =>{
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () =>{
+          setImage(reader.result);
+      }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    var contenttypes = checked
     axios.post(PROFILE_URL, {
-      name,
+      title,
       description,
-      checked,
+      contenttypes,
+      filename,
     })
       .then((response) => {
         console.log(response.data);
@@ -70,7 +87,7 @@ const Profile = () => {
             <div className="input-block">
               <input
                 type="text"
-                value={name}
+                value={title}
                 onChange={handleNameChange}
                 name="name"
                 id="input-text"
@@ -112,6 +129,11 @@ const Profile = () => {
                 {`Content Types: ${checked.join(", ")}`}
               </div>
             </div>
+            <div className="temp">
+                <input onChange={handleImage}  type="file" id="formupload" name="filename" className="form-control"  />
+                <label className="form-label" htmlFor="form4Example2">Image</label>
+            </div>
+            <img className="img-fluid" src={filename} alt="" />
             {/* <div className="dropdown-checkboxes">
               <MultiSelectCheckBox
                 options={checkList.map(item => ({ label: item, value: item }))}

@@ -1,23 +1,25 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import { useState, useEffect } from "react"
+import "../css/homepage.css"
+import Zoom from 'react-reveal/Zoom';
 
 const Homepage = () => {
 
-  const [isCreatorLoggedIn, setIsCreatorLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const user = localStorage.getItem('user')
-
-    if(user === "CC"){
-      setIsCreatorLoggedIn(true)
-    }
-  },[isCreatorLoggedIn])
 
   return (
     <>
-        <Navbar isCreatorLoggedIn={isCreatorLoggedIn} />
-        <h1>Welcome To CollabHub</h1>
+        <Navbar />
+          <div className='home-div'>
+            <div className="initial-content">
+              <Zoom>
+              <h1>Collab Hub</h1>
+              <p>An AI-driven tool to enhance collaborations between influencers an sponsors</p>
+              </Zoom>
+            </div>
+            <Zoom>
+              <p>Markup that will be revealed on scroll</p>
+            </Zoom>
+          </div>
     </>
   )
 }

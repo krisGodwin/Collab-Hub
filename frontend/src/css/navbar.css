@@ -11,7 +11,7 @@
   align-items: center; /* Center items vertically */
   width: 100%;
   padding: 20px 30px;
-  border-bottom: black 1px solid;
+  /* border-bottom: black 1px solid; */
   color: #BFA181;
 }
 .navbar .logo h2{

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cloudinary = require('../utils/cloudinary');
 require("dotenv").config();
 const ContentCreatorModel = require("../models/ContentCreatorModel.js");
 const HiringModel = require("../models/HiringModel.js");
@@ -58,7 +59,7 @@ exports.Login = async(req,res) => {
             }
         }
         const token = generateToken(res, ContentCreatorPresent._id)
-
+        
         res.status(200).json({
             _token: token,
             _id: ContentCreatorPresent._id,
@@ -78,31 +79,26 @@ exports.Profile = async(req,res) => {
     return res.status(200).json({email : CreatorData["email"],role : req.userData["CC"].role,contents : CreatorData["contenttype"]})
 }
 exports.AddContent = async(req,res) => {
+    console.log(req.cookie)
     const {title,description,contenttypes} = req.body;
-    // console.log(req.body.filename)
     const image_file = req.body.filename;
-    await UploadFile("./images/" + image_file)
-    console.log("Hi")
-    .then(async(publicID,err)=>{
-        if(err){
-            return res.status(400).json({message : "Could not create the post"});
-        }
-        const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+    const result = await cloudinary.uploader.upload(image_file, {
+        folder: "products",
+        // width: 300,
+        // crop: "scale"
+    })
+    //console.log(result.url)
+    //await UploadFile("./images/" + image_file)
+    //console.log("Hi")
+    const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
         const newPost = new PostsModel({
             title : title,
             description : description,
-            image_url : publicID,
+            image_url : result.url,
             contenttypes : ContentArray,
             contentCreator : req.userData["CC"].id
         });
-        await newPost.save()
-        .then((saved,err) => {
-            if(err){
-                return res.status(400).json({message : "Could not save the post"});
-            }
-            return res.status(200).json({message : "Post created successfully"})
-        })
-    })
+        await newPost.save() 
 }
 exports.GetPosts = async(req,res) => {
     PostsModel.find({ contentCreator: req.userData["CC"].id })

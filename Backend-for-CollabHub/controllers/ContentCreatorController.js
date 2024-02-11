@@ -58,17 +58,17 @@ exports.Login = async(req,res) => {
                 "contentCreator" : true
             }
         }
-        const token = generateToken(res, ContentCreatorPresent._id)
+        // const token = generateToken(res, ContentCreatorPresent._id)
         
-        res.status(200).json({
-            _token: token,
-            _id: ContentCreatorPresent._id,
-            email: ContentCreatorPresent.email,
-        })
-        // jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
-        //     if (err) throw err;
-        //     res.status(200).json({_id : ContentCreatorPresent._id,token : token})
+        // res.status(200).json({
+        //     _token: token,
+        //     _id: ContentCreatorPresent._id,
+        //     email: ContentCreatorPresent.email,
         // })
+        jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+            if (err) throw err;
+            res.status(200).json({_id : ContentCreatorPresent._id,_token : token})
+        })
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})
@@ -79,7 +79,7 @@ exports.Profile = async(req,res) => {
     return res.status(200).json({email : CreatorData["email"],role : req.userData["CC"].role,contents : CreatorData["contenttype"]})
 }
 exports.AddContent = async(req,res) => {
-    console.log(req.cookie)
+    console.log(req.cookies.jwt)
     const {title,description,contenttypes} = req.body;
     const image_file = req.body.filename;
     const result = await cloudinary.uploader.upload(image_file, {

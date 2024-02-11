@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const ContentCreatorRoute = require("./routes/ContentCreatorRoute.js");
 const HiringRoute = require("./routes/HiringRoute.js");
 
-const cors = require('cors')
+// const cors = require('cors')
 
 const cookieParser = require("cookie-parser")
 
@@ -22,7 +22,15 @@ const corsConfig = {
   origin: true,
 };
 
-app.use(cors(corsConfig));
+// app.use(cors(corsConfig));
+
+const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

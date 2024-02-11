@@ -47,6 +47,12 @@ const Profile = () => {
       }
   }
 
+  const token = localStorage.getItem('token');
+
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     var contenttypes = checked
@@ -55,7 +61,8 @@ const Profile = () => {
       description,
       contenttypes,
       filename,
-    })
+    },{ headers }
+    )
       .then((response) => {
         console.log(response.data);
       })
@@ -80,7 +87,7 @@ const Profile = () => {
     <>
       <Navbar />
       <div className="loginDiv">
-        <div className="login-container">
+        <div className="profile-login-container">
           <img src="./logo.png" alt="" />
           <h2 className="login-title">Create Your Post</h2>
           <form onSubmit={handleSubmit} className="login-form">

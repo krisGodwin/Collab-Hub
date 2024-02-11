@@ -28,7 +28,7 @@
   margin: 15px; /* Adjust margin on hover for a closer appearance */
 }
   
-  .card-image {
+.post-div .card-image {
     width: 400px;
     height: 400px;
     object-fit: cover;

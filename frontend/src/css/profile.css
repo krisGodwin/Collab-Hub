@@ -4,7 +4,7 @@
   background-color: #0A1828 !important;
 }
 
-.login-container {
+.profile-login-container {
   max-width: 400px;
   margin: auto;
   padding: 20px;
@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.login-container img {
+.profile-login-container img {
   width: 100px;
   background-color: #0A1828 !important;
 }

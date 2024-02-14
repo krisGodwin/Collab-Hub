@@ -87,9 +87,6 @@ exports.AddContent = async(req,res) => {
         // width: 300,
         // crop: "scale"
     })
-    //console.log(result.url)
-    //await UploadFile("./images/" + image_file)
-    //console.log("Hi")
     const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
         const newPost = new PostsModel({
             title : title,

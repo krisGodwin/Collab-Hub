@@ -16,9 +16,13 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-  const PROFILE_URL = "http://localhost:8000/content/addpost";
+  const PROFILE_CC_URL = "http://localhost:8000/content/addpost";
+
+  const PROFILE_HH_URL = "http://localhost:8000/hiring/addpost";
 
   const checkList = ["Entertainment", "Music", "Sport", "Lifestyle"];
+
+  const userType = localStorage.getItem("user")
 
   const goCreator = () => {
     navigate('/recommendation');
@@ -56,20 +60,36 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     var contenttypes = checked
-    axios.post(PROFILE_URL, {
-      title,
-      description,
-      contenttypes,
-      filename,
-    },{ headers }
-    )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    if(userType === "CC"){
+      axios.post(PROFILE_CC_URL, {
+        title,
+        description,
+        contenttypes,
+        filename,
+      },{ headers }
+      )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios.post(PROFILE_HH_URL, {
+        title,
+        description,
+        contenttypes,
+        filename,
+      },{ headers }
+      )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
 
   const handleNameChange = (e) => {
     setName(e.target.value);

@@ -5,6 +5,8 @@ require("dotenv").config();
 const HiringModel = require("../models/HiringModel.js");
 const PostModel = require("../models/PostModel.js");
 const ClickModel = require("../models/ClickModel.js")
+const cloudinary = require('../utils/cloudinary');
+const UploadFile = require("../middlewares/cloudinary_service.js");
 const {UserModel,UserType} = require("../models/UserModel.js")
 exports.Register = async(req,res) => {
     try {
@@ -54,7 +56,7 @@ exports.Login = async(req,res) => {
         }
         jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
             if (err) throw err;
-            res.status(200).json({_id : HirerPresent._id,token : token})
+            res.status(200).json({_id : HirerPresent._id,_token : token})
         })
     } catch (error) {
         console.error(error);
@@ -84,6 +86,25 @@ exports.Home = async(req,res) => {
         return res.status(500).json({message : "Server Error"})
     }
     
+}
+exports.AddContent = async(req,res) => {
+    console.log(req.cookies.jwt)
+    const {title,description,contenttypes} = req.body;
+    const image_file = req.body.filename;
+    const result = await cloudinary.uploader.upload(image_file, {
+        folder: "products",
+        // width: 300,
+        // crop: "scale"
+    })
+    const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+        const newPost = new PostModel({
+            title : title,
+            description : description,
+            image_url : result.url,
+            contenttypes : ContentArray,
+            contentCreator : req.userData["HH"].id
+        });
+        await newPost.save() 
 }
 exports.Counter = async(req,res) => {
     try {

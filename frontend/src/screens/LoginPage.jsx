@@ -64,6 +64,7 @@ const LoginPage = () => {
             if(response.status=== 200){
               toast.success("User Logged in");
               localStorage.setItem('user', "HH")
+              localStorage.setItem("token",response.data._token)
               goSearchPage();
             } else {
               toast.error("Invalid credentials");

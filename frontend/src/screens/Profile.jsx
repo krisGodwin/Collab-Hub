@@ -22,7 +22,7 @@ const Profile = () => {
 
   const checkList = ["Entertainment", "Music", "Sport", "Lifestyle"];
 
-  const userType = localStorage.getItem("user")
+  const contentCreatorType = localStorage.getItem("user")
 
   const goCreator = () => {
     navigate('/recommendation');
@@ -60,7 +60,7 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     var contenttypes = checked
-    if(userType === "CC"){
+    if(contentCreatorType === "CC"){
       axios.post(PROFILE_CC_URL, {
         title,
         description,
@@ -80,6 +80,7 @@ const Profile = () => {
         description,
         contenttypes,
         filename,
+        contentCreatorType
       },{ headers }
       )
         .then((response) => {

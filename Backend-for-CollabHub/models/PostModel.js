@@ -22,6 +22,10 @@ const PostSchema = new mongoose.Schema({
         ref: 'ContentCreator',
         required: true,
     },
+    contentCreatorType:{
+        type: String,
+        required: true,
+    }
 },
 {
     timestamps: true

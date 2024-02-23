@@ -66,7 +66,11 @@ const Profile = () => {
         description,
         contenttypes,
         filename,
-      },{ headers }
+        contentCreatorType,
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+      },
+        { headers }
       )
         .then((response) => {
           console.log(response.data);
@@ -80,7 +84,9 @@ const Profile = () => {
         description,
         contenttypes,
         filename,
-        contentCreatorType
+        contentCreatorType,
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
       },{ headers }
       )
         .then((response) => {

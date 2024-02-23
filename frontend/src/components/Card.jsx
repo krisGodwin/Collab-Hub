@@ -6,12 +6,12 @@ import '../css/searchpage.css'
 const Card = ({creator}) => {
   return (
     <div className="card">
-            <img src={creator.image} alt='' className="card-image" />
+            <img src={creator.image_url} alt='' className="card-image" />
               <div className="card-content">
-                <Link to={`/search/${creator.id}`}><h2 className="card-title">{creator.title}</h2></Link>
+                <Link to={`/search/${creator._id}`}><h2 className="card-title">{creator.title}</h2></Link>
                 <h4>Content Type</h4>
                 <div className='card-content-type'>
-                  { creator.content.map((data) => (
+                  { creator.contenttypes.map((data) => (
                     <p>#{data}</p>
                   ))}
                 </div>

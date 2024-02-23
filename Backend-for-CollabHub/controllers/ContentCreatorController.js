@@ -98,6 +98,12 @@ exports.AddContent = async(req,res) => {
         });
         await newPost.save() 
 }
+exports.GetAllPosts = async(req, res) => {
+    const posts = await PostsModel.find({ contentCreatorType:"CC" })
+    console.log(posts)
+    return res.status(200).json({data: posts})
+}
+
 exports.GetPosts = async(req,res) => {
     PostsModel.find({ contentCreator: req.userData["CC"].id })
     .populate('contentCreator')

@@ -32,11 +32,14 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-// app.use(express.json({ limit: "50mb" }));
-// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
+app.use(bodyParser.json({limit: '50mb'}));
 
 // app.use((req, res, next) => {
 //     res.header("Access-Control-Allow-Origin", "http://localhost:3000");

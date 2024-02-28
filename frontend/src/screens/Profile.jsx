@@ -57,6 +57,11 @@ const Profile = () => {
     'Authorization': `Bearer ${token}`
   };
 
+  const goSearchPage = () => {
+    navigate('/search')
+  }
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     var contenttypes = checked
@@ -73,6 +78,9 @@ const Profile = () => {
         { headers }
       )
         .then((response) => {
+          if(response.status === 200){
+            goSearchPage()
+          }
           console.log(response.data);
         })
         .catch((error) => {
@@ -130,7 +138,7 @@ const Profile = () => {
               />
               <span className="placeholder">Name</span>
             </div>
-            <div className="input-block">
+            {/* <div className="input-block">
               <input
                 type="text"
                 value={description}
@@ -141,7 +149,18 @@ const Profile = () => {
                 spellCheck="false"
               />
               <span className="placeholder">Description</span>
-            </div>
+            </div> */}
+            <div className="input-block">
+                <textarea
+                  value={description}
+                  onChange={handleDescriptionChange}
+                  name="description"
+                  id="description-text"
+                  required
+                  spellCheck="false"
+                />
+                <span className="placeholder">Description</span>
+              </div>
             <div className="app">
               <div className="checkList">
                 <div className="title">Select your content types</div>

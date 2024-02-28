@@ -150,6 +150,50 @@ div.input-block input:focus + span.placeholder {
   align-items: center;
 }
 
+div.input-block textarea {
+  font-size: 1rem;
+  color: #BFA181; 
+  background-color: #0A1828 !important;
+  width: 350px;
+  height: 150px; /* Adjust height as needed */
+  padding: 15px; /* Adjust padding as needed */
+  border-radius: 1rem;
+  border: 2px solid #BFA181; /* Updated border color */
+  outline: none;
+  resize: none; /* Disable resizing */
+  margin-bottom: 15px;
+}
+
+div.input-block textarea:focus {
+  color: #BFA181; /* Updated focused text color */
+  border-color: #BFA181; /* Updated focused border color */
+}
+
+div.input-block textarea + span.placeholder {
+  position: absolute;
+  margin: 17px 0;
+  padding: 0 4px;
+  color: #BFA181; /* Updated placeholder text color */
+  font-size: 1.2rem;
+  top: 0;
+  left: 17px;
+  transition: all 0.2s;
+  transform-origin: 0% 0%;
+  background-color: #0A1828 !important;
+  pointer-events: none;
+}
+
+div.input-block textarea:valid + span.placeholder,
+div.input-block textarea:focus + span.placeholder {
+  transform: scale(0.8) translateY(-30px);
+  background-color: #0A1828 !important;
+}
+
+div.input-block textarea:focus + span.placeholder {
+  color: #BFA181; /* Updated focused placeholder text color */
+}
+
+
 .temp .reccomendation-button {
   background-color: white !important;
   color: black !important;

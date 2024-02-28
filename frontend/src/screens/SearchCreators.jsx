@@ -80,8 +80,8 @@ const SearchCreators = () => {
           <button class="search-button">🔍</button>
       </div>
         <div className='search-div'>
-        {userposts.map((product) => (
-          <Card key={product.id} creator={product} />
+        {userposts.map((product, index) => (
+          <Card key={index} creator={product} />
         ))}
         </div>
     </>

@@ -100,9 +100,28 @@ exports.AddContent = async(req,res) => {
 }
 exports.GetAllPosts = async(req, res) => {
     const posts = await PostsModel.find({ contentCreatorType:"CC" })
-    console.log(posts)
     return res.status(200).json({data: posts})
 }
+
+exports.GetOnePost = async (req, res) => {
+    const { id } = req.query; // Retrieve id from query parameters
+    const posts = await PostsModel.find({ _id: id })
+        .then((posts, err) => {
+            if (err) {
+                console.error(err)
+                return res.status(400).json({ message: "Could not get the posts" });
+            }
+            const mappedResult = posts.map(post => ({
+                _id: post._id,
+                title: post.title,
+                description: post.description,
+                image_url: post.image_url,
+                contenttypes: post.contenttypes
+            }));
+            return res.status(200).json({ data: mappedResult });
+        })
+}
+
 
 exports.GetPosts = async(req,res) => {
     PostsModel.find({ contentCreator: req.userData["CC"].id })

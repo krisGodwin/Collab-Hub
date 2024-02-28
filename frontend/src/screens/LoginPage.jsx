@@ -3,13 +3,16 @@ import Navbar from '../components/Navbar'
 import { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../css/loginpage.css'
 
 const LoginPage = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
+
+        const notifyA = (msg) => toast.error(msg);
+        // const notifyB = (msg) => toast.success(msg);
         
 
         const LOGIN_CC_URL = "http://localhost:8000/content/login"
@@ -34,13 +37,14 @@ const LoginPage = () => {
                   'Content-Type': 'application/json'}
               })
             .then((response) => {
-              if(response.status=== 200){
+              if(response.status === 200){
                 toast.success("User Logged in");
                 localStorage.setItem('user', "CC")
                 localStorage.setItem("token",response.data._token)
                 goSearchPage();
               } else {
-                toast.error("Invalid credentials");
+                notifyA("Invalid credentials")
+                return;
               }
               return response.status
             })
@@ -182,7 +186,7 @@ const LoginPage = () => {
              </form>
          </div>
      </div>}
-            <ToastContainer />
+          
           </>
         );
       };

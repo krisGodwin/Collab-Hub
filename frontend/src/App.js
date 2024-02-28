@@ -8,6 +8,7 @@ import SearchCreators from './screens/SearchCreators';
 import Creator from './screens/Creator';
 import Profile from './screens/Profile';
 import Post from './screens/Post';
+import { ToastContainer } from "react-toastify";
 import Recommendations from './screens/Recommendations';
 import './App.css';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/post' element={<Post />}></Route>
           <Route path='/recommendation' element={<Recommendations />}></Route>
         </Routes>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

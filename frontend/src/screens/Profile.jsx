@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 // import MultiSelectCheckBox from 'react-multiselect-checkboxes';
+import { toast } from "react-toastify";
 import axios from 'axios';
 import '../css/profile.css';
 
@@ -80,6 +81,7 @@ const Profile = () => {
         .then((response) => {
           if(response.status === 200){
             goSearchPage()
+            toast.success("Post Created")
           }
           console.log(response.data);
         })

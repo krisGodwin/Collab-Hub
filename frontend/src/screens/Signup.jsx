@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import '../css/signup.css'
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
 const Signup = () => {
@@ -24,12 +26,29 @@ const Signup = () => {
 
         const navigate = useNavigate();
 
+        const notifyA = (msg) => toast.error(msg);
+        const notifyB = (msg) => toast.success(msg);
+      
+        // eslint-disable-next-line
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        // eslint-disable-next-line
+        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
         const goSearchPage = () => {
           navigate('/search')
         }
       
         const handleSubmitCC = (e) => {
           e.preventDefault();
+          if (!emailRegex.test(email)) {
+            notifyA("Invalid email");
+            return;
+          } else if (!passRegex.test(password)) {
+            notifyA(
+              "Password must contain at least 8 characters, including at least 1 number and 1 includes both lower and uppercase letters and special characters for example #,?,!"
+            );
+            return;
+          }
             axios.post(REGISTER_CC_URL, {
               email,
               password
@@ -39,6 +58,7 @@ const Signup = () => {
                 console.log(response.data.id)
                 console.log(response.status)
                 console.log(response.data.message)
+                notifyB("Account created")
                 goSearchPage();
               }
               return response.status

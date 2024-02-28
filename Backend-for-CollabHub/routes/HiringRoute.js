@@ -8,5 +8,6 @@ router.post("/login",HiringController.Login);
 router.get("/profile",AuthCheckerHiring,HiringController.Profile);
 router.get("/home",AuthCheckerHiring,HiringController.Home);
 router.post("/addpost",AuthCheckerHiring,fileUpload.single("image"),HiringController.AddContent);
+router.get("/getallposts",HiringController.GetAllPosts)
 router.post("/:postId",AuthCheckerHiring,HiringController.Counter);
 module.exports = router;

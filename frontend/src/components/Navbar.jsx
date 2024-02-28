@@ -47,6 +47,12 @@ const Navbar = () => {
     navigate('/post')
   }
 
+  const logout = () => {
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    goLoginPage()
+  }
+
 
   return (
     <div  className="navbar" >
@@ -61,6 +67,7 @@ const Navbar = () => {
                 <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li>
                 <li onClick={goSearchPage}>Search</li>
                 <li onClick={goProfilePage}>Profile</li>
+                <li onClick={logout} className={loggedIn ? '' : 'disabled'}>Logout</li>
             </ul>
         </div>
         <div  className="message">

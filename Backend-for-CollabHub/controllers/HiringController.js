@@ -107,6 +107,13 @@ exports.AddContent = async(req,res) => {
         });
         await newPost.save() 
 }
+
+exports.GetAllPosts = async(req, res) => {
+    const posts = await PostModel.find({})
+    console.log(posts)
+    return res.status(200).json({data: posts})
+}
+
 exports.Counter = async(req,res) => {
     try {
         const {id} = req.userData["HH"].id;

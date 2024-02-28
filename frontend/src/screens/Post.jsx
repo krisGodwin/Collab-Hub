@@ -10,7 +10,7 @@ const Post = () => {
 
   const [userposts, setUserposts] = useState([])
 
-  const POST_CC_URL = "http://localhost:8000/content/getallposts"
+  const POST_CC_URL = "http://localhost:8000/hiring/getallposts"
 
   const getData = async () => {
     await axios.get(POST_CC_URL

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require('../utils/cloudinary');
@@ -6,6 +7,7 @@ require("dotenv").config();
 const ContentCreatorModel = require("../models/ContentCreatorModel.js");
 const HiringModel = require("../models/HiringModel.js");
 const PostsModel = require("../models/PostModel.js");
+const CC=require("../models/CreatorRecommendModel.js")
 const UploadFile = require("../middlewares/cloudinary_service.js");
 const {UserModel,UserType} = require("../models/UserModel.js");
 const { generateToken } = require("../utils/generateToken.js");
@@ -87,8 +89,11 @@ exports.AddContent = async(req,res) => {
         // width: 300,
         // crop: "scale"
     })
+    const id=uuidv4()
     const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+    console.log(ContentArray[0])
         const newPost = new PostsModel({
+            id:id,
             title : title,
             description : description,
             image_url : result.url,
@@ -97,6 +102,12 @@ exports.AddContent = async(req,res) => {
             contentCreatorType: contentCreatorType
         });
         await newPost.save() 
+        const newCC = new CC({
+            Creator_id:id,
+            contenttypes : ContentArray[0]
+        });
+        await newCC.save() 
+    
 }
 exports.GetAllPosts = async(req, res) => {
     const posts = await PostsModel.find({ contentCreatorType:"CC" })

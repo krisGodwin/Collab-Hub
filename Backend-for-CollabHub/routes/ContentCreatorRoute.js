@@ -7,6 +7,7 @@ router.post("/register",ContentCreatorController.Register);
 router.post("/login",ContentCreatorController.Login);
 router.get("/profile",AuthCheckerContent,ContentCreatorController.Profile);
 router.post("/addpost",AuthCheckerContent,fileUpload.single("image"),ContentCreatorController.AddContent);
+router.get("/searchposts",ContentCreatorController.SearchPosts)
 router.get("/getallposts",ContentCreatorController.GetAllPosts);
 router.get("/getonepost",ContentCreatorController.GetOnePost)
 router.get("/getposts",AuthCheckerContent,ContentCreatorController.GetPosts);

@@ -58,12 +58,18 @@ const SearchCreators = () => {
   }, [getData])
 
   // eslint-disable-next-line
-  const filterData = (query) => {
-    const filtered = data.filter((creator) =>
-      creator.title.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
+  // const filterData = () => {
+  //   const 
+  // };
+
+  const searchPost = async (e) => {
+    setSearchQuery(e.target.value)
+    const searchValue = e.target.value
+    const { data } = await axios.get(`http://localhost:8000/content/searchposts?title=${searchValue}`)
+    console.log(data)
+    // The subset of posts is added to the state that will trigger a re-render of the UI
+    setUserposts(data.searchResults)
+  }
 
 
   return (
@@ -73,8 +79,8 @@ const SearchCreators = () => {
           <input
               type="text"
               class="search-input"
-              value={""}
-              onChange={""} 
+              value={searchQuery}
+              onChange={searchPost} 
               placeholder='Search creators...'   
           />
           <button class="search-button">🔍</button>

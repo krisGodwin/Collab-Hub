@@ -119,6 +119,22 @@ exports.AddContent = async(req,res) => {
         return res.status(204).json({})
     
 }
+
+exports.SearchPosts = async(req, res) => {
+    const searchQuery = req.query.title; // Assuming you're sending the search query as a query parameter named 'title'
+    
+    try {
+        // Perform the search using Mongoose
+        const searchResults = await PostsModel.find({ title: { $regex: searchQuery, $options: 'i' } });
+        
+        res.status(200).json({ searchResults });
+    } catch (error) {
+        // Handle errors
+        console.error('Error searching posts:', error);
+        res.status(500).json({ error: 'An error occurred while searching posts' });
+    }
+}
+
 exports.GetAllPosts = async(req, res) => {
     const posts = await PostsModel.find({ contentCreatorType:"CC" })
     return res.status(200).json({data: posts})

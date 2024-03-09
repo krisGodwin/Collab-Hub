@@ -8,7 +8,8 @@ const ClickModel = require("../models/ClickModel.js")
 const cloudinary = require('../utils/cloudinary');
 const UploadFile = require("../middlewares/cloudinary_service.js");
 const { v4: uuidv4 } = require('uuid');
-const {UserModel,UserType} = require("../models/UserModel.js")
+const {UserModel,UserType} = require("../models/UserModel.js");
+const Hiring = require("../models/HiringModel.js");
 exports.Register = async(req,res) => {
     try {
         const {email,password} = req.body;
@@ -124,9 +125,16 @@ exports.AddContent = async(req,res) => {
 
 exports.GetAllPosts = async(req, res) => {
     const { user_id } = req.query; 
-    console.log(user_id)
-    const posts = await PostModel.find({})
-    return res.status(200).json({data: posts})
+    const hirer=await Hiring.find({_id:user_id})
+    if(hirer[0].isFirstTime){
+        const posts = await PostModel.find({})
+        return res.status(200).json({data: posts})
+    }
+    else{
+        const posts = await hirer[0].populate('recommendations')
+        console.log(posts.recommendations)
+        return res.status(200).json({data: posts.recommendations})
+    }
     
 }
 

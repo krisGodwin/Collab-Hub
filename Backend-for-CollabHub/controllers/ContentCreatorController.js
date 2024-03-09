@@ -165,7 +165,6 @@ exports.GetOnePost = async (req, res) => {
                 user.isFirstTime = false;
              // Push the _ids of rec1 to the recommendations field
                 user.recommendations = rec1.map(post => post._id);
-                console.log(user.recommendations)
                 // Save the updated user document
                 await user.save()
             }

@@ -38,7 +38,6 @@ const SearchCreators = () => {
     }
         )
         .then((response) => {
-          console.log(response.data.data)
           setUserposts(response.data.data)
         })
         .catch((err) => {
@@ -48,13 +47,11 @@ const SearchCreators = () => {
       await axios.get(POST_HH_URL,
         {
           params: {
-              id: id,
               user_id: userid
           }, 
       }
         )
         .then((response) => {
-          console.log(response.data.data)
           setUserposts(response.data.data)
         })
         .catch((err) => {
@@ -62,7 +59,7 @@ const SearchCreators = () => {
         })
     }
     
-  },[contentCreatorType])
+  },[userid,contentCreatorType])
 
   useEffect(() => {
     getData()

@@ -125,6 +125,7 @@ exports.AddContent = async(req,res) => {
 exports.GetAllPosts = async(req, res) => {
     const posts = await PostModel.find({})
     return res.status(200).json({data: posts})
+    
 }
 
 exports.Counter = async(req,res) => {

@@ -11,6 +11,7 @@ const CC=require("../models/CreatorRecommendModel.js")
 const UploadFile = require("../middlewares/cloudinary_service.js");
 const {UserModel,UserType} = require("../models/UserModel.js");
 const { generateToken } = require("../utils/generateToken.js");
+const axios = require('axios');
 //const MessageModel = require("../models/MessageModel.js");
 exports.Register = async(req,res) => {
     try {
@@ -144,11 +145,16 @@ exports.GetAllPosts = async(req, res) => {
 exports.GetOnePost = async (req, res) => {
     const { id } = req.query; // Retrieve id from query parameters
     const posts = await PostsModel.find({ _id: id })
-        .then((posts, err) => {
+        .then(async (posts, err) => {
             if (err) {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
             }
+            console.log(posts[0].id)
+              const response = await axios.post("http://localhost:5000/prediction", {
+                id: posts[0].id,
+              });
+              
             const mappedResult = posts.map(post => ({
                 _id: post._id,
                 title: post.title,

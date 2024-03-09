@@ -113,7 +113,8 @@ exports.AddContent = async(req,res) => {
         await newPost.save() 
         const newCC = new CC({
             Creator_id:id,
-            contenttypes : ContentArray[0]
+            contenttypes : ContentArray[0],
+            post_id: newPost._id,
         });
         await newCC.save() 
         return res.status(204).json({})
@@ -159,6 +160,21 @@ exports.GetOnePost = async (req, res) => {
         })
 }
 
+exports.fetchRecommendedPosts = async (req, res) => {
+    const recommendedIds = req.body.recommendedIds; // Assuming you're getting an array of recommended IDs from req.body
+
+    try {
+        // Find posts with IDs in the recommendedIds array
+        const recommendedPosts = await PostModel.find({ _id: { $in: recommendedIds } });
+        
+        // Send the recommended posts as a response
+        res.json({ recommendedPosts });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching recommended posts:', error);
+        res.status(500).json({ error: 'An error occurred while fetching recommended posts' });
+    }
+};
 
 exports.GetPosts = async(req,res) => {
     PostsModel.find({ contentCreator: req.userData["CC"].id })

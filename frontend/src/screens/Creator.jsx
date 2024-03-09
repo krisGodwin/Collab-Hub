@@ -41,7 +41,6 @@ const Creator = () => {
                         <>
                             <img src={data[0].image_url} alt="" className="creator-image" />
                             <p><b>{data[0].title}</b></p>
-                            <p><b>Age: 26</b></p>
                             <p><b>Content type:</b></p>
                             <div className='card-content-type'>
                                 { data[0].contenttypes.map((type, index) => (

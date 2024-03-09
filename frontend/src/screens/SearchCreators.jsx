@@ -67,7 +67,6 @@ const SearchCreators = () => {
     const searchValue = e.target.value
     const { data } = await axios.get(`http://localhost:8000/content/searchposts?title=${searchValue}`)
     console.log(data)
-    // The subset of posts is added to the state that will trigger a re-render of the UI
     setUserposts(data.searchResults)
   }
 

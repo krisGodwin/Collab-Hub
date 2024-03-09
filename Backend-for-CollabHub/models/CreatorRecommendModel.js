@@ -9,6 +9,10 @@ const ContCreator = new mongoose.Schema({
         type: String,
         required: true,
     },
+    post_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     // Subscriber_Count:{
     //     type:Number,
     //     required:true

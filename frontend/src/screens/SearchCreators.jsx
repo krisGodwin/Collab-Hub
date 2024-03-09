@@ -20,6 +20,7 @@ const SearchCreators = () => {
     // filterData(e.target.value);
   };
 
+  const userid = localStorage.getItem('user_id');
   
 
   const POST_CC_URL = "http://localhost:8000/content/getallposts"
@@ -30,7 +31,11 @@ const SearchCreators = () => {
 
   const getData = useCallback(async () => {
     if (contentCreatorType === "CC") {
-      await axios.get(POST_CC_URL
+      await axios.get(POST_CC_URL,{
+        params: {
+            user_id: userid
+        }, 
+    }
         )
         .then((response) => {
           console.log(response.data.data)
@@ -40,7 +45,13 @@ const SearchCreators = () => {
           console.log(err)
         })
     } else {
-      await axios.get(POST_HH_URL
+      await axios.get(POST_HH_URL,
+        {
+          params: {
+              id: id,
+              user_id: userid
+          }, 
+      }
         )
         .then((response) => {
           console.log(response.data.data)

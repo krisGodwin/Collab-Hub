@@ -123,6 +123,8 @@ exports.AddContent = async(req,res) => {
 }
 
 exports.GetAllPosts = async(req, res) => {
+    const { user_id } = req.query; 
+    console.log(user_id)
     const posts = await PostModel.find({})
     return res.status(200).json({data: posts})
     

@@ -9,7 +9,7 @@ router.get("/profile",AuthCheckerContent,ContentCreatorController.Profile);
 router.post("/addpost",AuthCheckerContent,fileUpload.single("image"),ContentCreatorController.AddContent);
 router.get("/searchposts",ContentCreatorController.SearchPosts)
 router.get("/getallposts",ContentCreatorController.GetAllPosts)
-router.get("/getonepost",AuthCheckerContent,ContentCreatorController.GetOnePost)
+router.get("/getonepost",ContentCreatorController.GetOnePost)
 router.get("/getposts",AuthCheckerContent,ContentCreatorController.GetPosts);
 //router.post("/message",ContentCreatorController.AddDatainMessageModel);
 module.exports = router;

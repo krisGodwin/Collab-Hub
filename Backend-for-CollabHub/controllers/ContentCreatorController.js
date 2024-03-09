@@ -143,19 +143,22 @@ exports.GetAllPosts = async(req, res) => {
 }
 
 exports.GetOnePost = async (req, res) => {
-    const { id } = req.query; // Retrieve id from query parameters
+    const { id, user_id } = req.query; // Retrieve id from query parameters
     const posts = await PostsModel.find({ _id: id })
         .then(async (posts, err) => {
             if (err) {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
             }
+
+            console.log(user_id)
+
             console.log(posts[0].id)
               const response = await axios.post("http://localhost:5000/prediction", {
                 id: posts[0].id,
               });
 
-              console.log(req.userData["CC"].id)
+            //   console.log(req.userData["CC"].id)
               
             const mappedResult = posts.map(post => ({
                 _id: post._id,

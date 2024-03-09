@@ -154,6 +154,8 @@ exports.GetOnePost = async (req, res) => {
               const response = await axios.post("http://localhost:5000/prediction", {
                 id: posts[0].id,
               });
+
+              console.log(req.userData["CC"].id)
               
             const mappedResult = posts.map(post => ({
                 _id: post._id,

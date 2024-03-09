@@ -12,13 +12,19 @@ const Creator = () => {
     const [data, setData] = useState([])
 
     const GET_ONEPOST_URL = "http://localhost:8000/content/getonepost"
+
+    const token = localStorage.getItem('token');
+
     
     const getData = useCallback(async () => {
         console.log(id)
         await axios.get(GET_ONEPOST_URL, {
             params: {
                 id: id
-            }
+            }, 
+            headers : {
+                'Authorization': `Bearer ${token}`
+              }
         })
         .then((response) => {
             console.log(response.data.data)

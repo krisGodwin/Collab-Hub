@@ -7,9 +7,10 @@ const HiringSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    recommedations: {
-        type: [mongoose.Schema.Types.ObjectId]
-    }
+    recommendations: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Posts"
+    }]
 });
 
 const Hiring = User.discriminator(UserType.Hiring, HiringSchema);

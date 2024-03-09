@@ -150,16 +150,25 @@ exports.GetOnePost = async (req, res) => {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
             }
+// Recommendations
+            const user=await HiringModel.findOne({_id:user_id})
+            if (user || user.isFirstTime) {
+                const response = await axios.post("http://localhost:5000/prediction", {
+                  id: posts[0].id,
+                });
+              const idsArray = response.data.ids.map(id => id.toString());
 
-            console.log(user_id)
-
-            console.log(posts[0].id)
-              const response = await axios.post("http://localhost:5000/prediction", {
-                id: posts[0].id,
-              });
-
-            //   console.log(req.userData["CC"].id)
+              // Using $in to find records with matching IDs
+              const rec1 = await PostsModel.find({ id: { $in: idsArray } });
               
+
+                user.isFirstTime = false;
+             // Push the _ids of rec1 to the recommendations field
+                user.recommendations = rec1.map(post => post._id);
+                console.log(user.recommendations)
+                // Save the updated user document
+                await user.save()
+            }
             const mappedResult = posts.map(post => ({
                 _id: post._id,
                 title: post.title,

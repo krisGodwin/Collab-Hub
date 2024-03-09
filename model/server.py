@@ -21,7 +21,7 @@ def get_prediction(creator_id, k):
         if(i == creator_id):
             idx = i
         
-    sim_item=sorted(list(enumerate(sim_score[idx])),key=lambda x:x[1],reverse=True)[1:11]
+    sim_item=sorted(list(enumerate(sim_score[idx])),key=lambda x:x[1],reverse=True)[1:4]
     for i in sim_item:
         suggestions.append(uim.index[i[0]])
 
@@ -43,4 +43,4 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(port=8000)
+    app.run(port=5000)

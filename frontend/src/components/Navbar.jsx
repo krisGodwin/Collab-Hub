@@ -11,9 +11,12 @@ const Navbar = () => {
 
   const [isCreatorLoggedIn, setIsCreatorLoggedIn] = useState(false);
 
+  const [postexist, setPostExist] = useState(false)
+
  useEffect(() => {
   const user = localStorage.getItem('user');
   const userisCC = localStorage.getItem('user')
+  const postexists = localStorage.getItem('post')
 
   if(userisCC === "CC"){
     setIsCreatorLoggedIn(true)
@@ -22,7 +25,13 @@ const Navbar = () => {
   if (user !== null) {
     setLoggedIn(true);
   }
-}, [loggedIn, isCreatorLoggedIn]);
+
+  if (postexists === "true"){
+    setPostExist(true)
+  } else {
+    setPostExist(false)
+  }
+}, [loggedIn, isCreatorLoggedIn, postexist]);
 
 
 
@@ -50,6 +59,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
+    localStorage.removeItem("post")
     goLoginPage()
   }
 
@@ -66,7 +76,7 @@ const Navbar = () => {
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
                 <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li>
                 <li onClick={goSearchPage}>Search</li>
-                <li onClick={goProfilePage}>Profile</li>
+                <li onClick={goProfilePage} className={postexist ? 'disabled' : ''}>Profile</li>
                 <li onClick={logout} className={loggedIn ? '' : 'disabled'}>Logout</li>
             </ul>
         </div>

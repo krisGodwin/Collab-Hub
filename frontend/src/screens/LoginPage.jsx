@@ -41,6 +41,7 @@ const LoginPage = () => {
                 toast.success("User Logged in");
                 localStorage.setItem('user', "CC")
                 localStorage.setItem("token",response.data._token)
+                localStorage.setItem("post",response.data._post)
                 goSearchPage();
               } else {
                 notifyA("Invalid credentials")
@@ -69,6 +70,7 @@ const LoginPage = () => {
               toast.success("User Logged in");
               localStorage.setItem('user', "HH")
               localStorage.setItem("token",response.data._token)
+              localStorage.setItem("post",response.data._post)
               goSearchPage();
             } else {
               toast.error("Invalid credentials");

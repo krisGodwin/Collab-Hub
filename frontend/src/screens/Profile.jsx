@@ -21,7 +21,7 @@ const Profile = () => {
 
   const PROFILE_HH_URL = "http://localhost:8000/hiring/addpost";
 
-  const checkList = ["Entertainment", "Music", "Sport", "Lifestyle"];
+  const checkList = ["Tech", "Music", "Sport", "Food"];
 
   const contentCreatorType = localStorage.getItem("user")
 
@@ -78,16 +78,17 @@ const Profile = () => {
       },
         { headers }
       )
-        .then((response) => {
-          if(response.status === 200){
-            goSearchPage()
-            toast.success("Post Created")
-          }
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    .then((response) => {
+      if(response.status === 204){
+        toast.success("Post Created")
+        goSearchPage()
+      }
+      console.log(response.data);
+      console.log(response.status)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
     } else {
       axios.post(PROFILE_HH_URL, {
         title,
@@ -101,6 +102,10 @@ const Profile = () => {
       )
         .then((response) => {
           console.log(response.data);
+          if(response.status === 204){
+            toast.success("Post Created")
+            goSearchPage()
+          }
         })
         .catch((error) => {
           console.log(error);

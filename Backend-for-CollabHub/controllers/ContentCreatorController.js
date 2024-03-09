@@ -47,6 +47,7 @@ exports.Login = async(req,res) => {
     try {
         const {email,password} = req.body;
         const ContentCreatorPresent = await ContentCreatorModel.findOne({email : email});
+        const Postexists = await PostsModel.findOne({contentCreator: ContentCreatorPresent._id})
         if(!ContentCreatorPresent){
             return res.status(400).json({message : "Content Creator not Present"});
         }
@@ -67,10 +68,18 @@ exports.Login = async(req,res) => {
         //     _id: ContentCreatorPresent._id,
         //     email: ContentCreatorPresent.email,
         // })
-        jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
-            if (err) throw err;
-            res.status(200).json({_id : ContentCreatorPresent._id,_token : token})
-        })
+        if(Postexists){
+            jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+                if (err) throw err;
+                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: true})
+            })
+        } else {
+            jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+                if (err) throw err;
+                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: false})
+            })
+        }
+        
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})
@@ -107,6 +116,7 @@ exports.AddContent = async(req,res) => {
             contenttypes : ContentArray[0]
         });
         await newCC.save() 
+        return res.status(204).json({})
     
 }
 exports.GetAllPosts = async(req, res) => {

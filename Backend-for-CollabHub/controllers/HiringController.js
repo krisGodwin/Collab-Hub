@@ -7,6 +7,7 @@ const PostModel = require("../models/PostModel.js");
 const ClickModel = require("../models/ClickModel.js")
 const cloudinary = require('../utils/cloudinary');
 const UploadFile = require("../middlewares/cloudinary_service.js");
+const { v4: uuidv4 } = require('uuid');
 const {UserModel,UserType} = require("../models/UserModel.js")
 exports.Register = async(req,res) => {
     try {
@@ -48,16 +49,25 @@ exports.Login = async(req,res) => {
         if(!isMatch){
             return res.status(400).json({message : "Incorrect password"});
         }
+        const Postexists = await PostModel.findOne({contentCreator: HirerPresent._id})
         const payload = {
             HH : {
                 id : HirerPresent._id,
                 "hirer" : true
             }
         }
-        jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
-            if (err) throw err;
-            res.status(200).json({_id : HirerPresent._id,_token : token})
-        })
+        if(Postexists){
+            jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+                if (err) throw err;
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: true})
+            })
+        } else {
+            jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
+                if (err) throw err;
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: false})
+            })
+        }
+        
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})
@@ -96,8 +106,11 @@ exports.AddContent = async(req,res) => {
         // width: 300,
         // crop: "scale"
     })
+    const id=uuidv4()
+    console.log(req.userData["HH"].id)
     const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
         const newPost = new PostModel({
+            id:id,
             title : title,
             description : description,
             image_url : result.url,
@@ -106,6 +119,7 @@ exports.AddContent = async(req,res) => {
             contentCreatorType: contentCreatorType
         });
         await newPost.save() 
+        return res.status(204).json({})
 }
 
 exports.GetAllPosts = async(req, res) => {

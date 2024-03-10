@@ -28,7 +28,7 @@ const SearchCreators = () => {
   const POST_HH_URL = "http://localhost:8000/hiring/getallposts"
 
   const contentCreatorType = localStorage.getItem("user")
-
+  console.log(contentCreatorType)
   const getData = useCallback(async () => {
     if (contentCreatorType === "CC") {
       await axios.get(POST_CC_URL,{
@@ -43,7 +43,7 @@ const SearchCreators = () => {
         .catch((err) => {
           console.log(err)
         })
-    } else {
+    } else if(contentCreatorType==="HH") {
       await axios.get(POST_HH_URL,
         {
           params: {

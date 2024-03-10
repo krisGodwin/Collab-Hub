@@ -23,7 +23,8 @@ const Signup = () => {
         const REGISTER_CC_URL = "http://localhost:8000/content/register"
 
         const REGISTER_HH_URL = "http://localhost:8000/hiring/register"
-
+        const contentCreator="CC"
+        const Hirer="HH"
         const navigate = useNavigate();
 
         const notifyA = (msg) => toast.error(msg);
@@ -35,7 +36,7 @@ const Signup = () => {
         const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
         const goSearchPage = () => {
-          navigate('/search')
+          navigate('/login')
         }
       
         const handleSubmitCC = (e) => {
@@ -49,9 +50,11 @@ const Signup = () => {
             );
             return;
           }
+
             axios.post(REGISTER_CC_URL, {
               email,
-              password
+              password,
+              contentCreator
             })
             .then((response) => {
               if(response.status=== 200){
@@ -73,7 +76,8 @@ const Signup = () => {
           e.preventDefault();
           axios.post(REGISTER_HH_URL, {
             email,
-            password
+            password,
+            Hirer
           })
           .then((response) => {
             console.log(response._id)

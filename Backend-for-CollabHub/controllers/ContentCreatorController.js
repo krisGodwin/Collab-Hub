@@ -15,14 +15,15 @@ const axios = require('axios');
 //const MessageModel = require("../models/MessageModel.js");
 exports.Register = async(req,res) => {
     try {
-        const {email,password,contenttype} = req.body;
+        const {email,password,contentCreator,contenttype} = req.body;
         let creator = await ContentCreatorModel.findOne({email : email});
         if(creator){
             return res.status(400).json({message : "User Already Present"});
         }
         const creatorNew = new ContentCreatorModel({
             _id : new mongoose.Types.ObjectId(),
-            email : email
+            email : email,
+            contentCreatorType:contentCreator
         });
         const salt = await bcrypt.genSalt(10);
         creatorNew.password = await bcrypt.hash(password,salt);
@@ -149,25 +150,6 @@ exports.GetOnePost = async (req, res) => {
             if (err) {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
-            }
-// Recommendations
-            const user=await HiringModel.findOne({_id:user_id})
-            if (user || user.isFirstTime) {
-                const response = await axios.post("http://localhost:5000/prediction", {
-                  id:parseFloat (posts[0].id),
-                });
-
-              const idsArray = response.data.ids.map(id => id.toString());
-
-              // Using $in to find records with matching IDs
-              const rec1 = await PostsModel.find({ id: { $in: idsArray } });
-              
-
-                user.isFirstTime = false;
-             // Push the _ids of rec1 to the recommendations field
-                user.recommendations = rec1.map(post => post._id);
-                // Save the updated user document
-                await user.save()
             }
             const mappedResult = posts.map(post => ({
                 _id: post._id,

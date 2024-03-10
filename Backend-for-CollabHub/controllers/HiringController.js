@@ -9,17 +9,19 @@ const cloudinary = require('../utils/cloudinary');
 const UploadFile = require("../middlewares/cloudinary_service.js");
 const { v4: uuidv4 } = require('uuid');
 const {UserModel,UserType} = require("../models/UserModel.js");
+const axios = require('axios');
 const Hiring = require("../models/HiringModel.js");
 exports.Register = async(req,res) => {
     try {
-        const {email,password} = req.body;
+        const {email,password,Hirer} = req.body;
         let Hiring = await HiringModel.findOne({email : email});
         if(Hiring){
             return res.status(400).json({message : "User Already Present"});
         }
         const HiringNew = new HiringModel({
             _id : new mongoose.Types.ObjectId(),
-            email : email
+            email : email,
+            contentCreatorType:Hirer
         });
         const salt = await bcrypt.genSalt(10);
         HiringNew.password = await bcrypt.hash(password,salt);
@@ -123,21 +125,60 @@ exports.AddContent = async(req,res) => {
         return res.status(204).json({})
 }
 
-exports.GetAllPosts = async(req, res) => {
+exports.GetAlPosts = async(req, res) => {
     const { user_id } = req.query; 
     const hirer=await Hiring.find({_id:user_id})
     console.log(hirer[0].isFirstTime)
     if(hirer[0].isFirstTime){
         const posts = await PostModel.find({})
         return res.status(200).json({data: posts})
+
     }
     else{
         const posts = await hirer[0].populate('recommendations')
-        console.log(posts.recommendations)
+        // console.log(posts.recommendations)
         return res.status(200).json({data: posts.recommendations})
     }
 }
+exports.GetOnePost = async (req, res) => {
+    const { id, user_id } = req.query; // Retrieve id from query parameters
+    const posts = await PostModel.find({ _id: id })
+        .then(async (posts, err) => {
+            if (err) {
+                console.error(err)
+                return res.status(400).json({ message: "Could not get the posts" });
+            }
+            
+// Recommendations
+            const user=await HiringModel.findOne({_id:user_id})
+            console.log(posts[0].id)
+            if (user || user.isFirstTime) {
+                const response = await axios.post("http://localhost:5000/prediction", {
+                  id:parseFloat (posts[0].id),
+                });
 
+              const idsArray = response.data.ids.map(id => id.toString());
+
+              // Using $in to find records with matching IDs
+              const rec1 = await PostModel.find({ id: { $in: idsArray } });
+              
+
+                user.isFirstTime = false;
+             // Push the _ids of rec1 to the recommendations field
+                user.recommendations = rec1.map(post => post._id);
+                // Save the updated user document
+                await user.save()
+            }
+            const mappedResult = posts.map(post => ({
+                _id: post._id,
+                title: post.title,
+                description: post.description,
+                image_url: post.image_url,
+                contenttypes: post.contenttypes
+            }));
+            return res.status(200).json({ data: mappedResult });
+        })
+}
 exports.Counter = async(req,res) => {
     try {
         const {id} = req.userData["HH"].id;

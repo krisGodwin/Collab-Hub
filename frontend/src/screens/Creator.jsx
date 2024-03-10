@@ -11,23 +11,37 @@ const Creator = () => {
 
     const [data, setData] = useState([])
 
-    const GET_ONEPOST_URL = "http://localhost:8000/content/getonepost"
+    const GET_CC_ONEPOST_URL = "http://localhost:8000/content/getonepost"
+    const GET_HH_ONEPOST_URL = "http://localhost:8000/hiring/getonepost"
     const userid = localStorage.getItem('user_id');
-
+    const contentCreatorType = localStorage.getItem("user")
     
     const getData = useCallback(async () => {
         console.log(id)
-        await axios.get(GET_ONEPOST_URL, {
-            params: {
-                id: id,
-                user_id: userid
-            }, 
-        })
-        .then((response) => {
-            console.log(response.data.data)
-            setData(response.data.data)
-        })
-    }, [id, userid])
+        if(contentCreatorType==="CC"){
+            await axios.get(GET_CC_ONEPOST_URL, {
+                params: {
+                    id: id,
+                    user_id: userid
+                }, 
+            })
+            .then((response) => {
+                console.log(response.data.data)
+                setData(response.data.data)
+            })
+        }else if(contentCreatorType==="HH"){
+            await axios.get(GET_HH_ONEPOST_URL, {
+                params: {
+                    id: id,
+                    user_id: userid
+                }, 
+            })
+            .then((response) => {
+                console.log(response.data.data)
+                setData(response.data.data)
+            })
+        }
+    }, [id, userid,contentCreatorType])
     
 
     useEffect(() => {

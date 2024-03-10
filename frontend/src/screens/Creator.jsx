@@ -26,7 +26,7 @@ const Creator = () => {
                 }, 
             })
             .then((response) => {
-                console.log(response.data.data)
+                console.log(response)
                 setData(response.data.data)
             })
         }else if(contentCreatorType==="HH"){

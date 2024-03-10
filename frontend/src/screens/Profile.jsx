@@ -247,11 +247,11 @@ const Profile = () => {
           </form>
         </div>
       </div>
-      <div className="temp">
+      {/* <div className="temp">
         <button onClick={goCreator} className="reccomendation-button">
           Browse Recommendations
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

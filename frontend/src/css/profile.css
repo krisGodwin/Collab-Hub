@@ -1,3 +1,7 @@
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 .loginDiv {
   padding-bottom: 70px;
   padding-top: 150px;

@@ -11,6 +11,7 @@ import Post from './screens/Post';
 import { ToastContainer } from "react-toastify";
 import Recommendations from './screens/Recommendations';
 import './App.css';
+import Chat from './components/Chat';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/post' element={<Post />}></Route>
           <Route path='/recommendation' element={<Recommendations />}></Route>
+          <Route path='/chat/:receiverId' element={<Chat />}></Route>
         </Routes>
         <ToastContainer />
       </div>

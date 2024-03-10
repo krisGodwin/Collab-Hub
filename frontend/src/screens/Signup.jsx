@@ -65,6 +65,7 @@ const Signup = () => {
             })
             .catch((error) => {
               console.log(error)
+              notifyA(error.response.data.message)
             })
         };
 
@@ -81,6 +82,7 @@ const Signup = () => {
           })
           .catch((error) => {
             console.log(error)
+            notifyA(error.response.data.message)
           })
         };
 

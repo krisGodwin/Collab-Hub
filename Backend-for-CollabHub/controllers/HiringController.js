@@ -126,7 +126,7 @@ exports.AddContent = async(req,res) => {
 exports.GetAllPosts = async(req, res) => {
     const { user_id } = req.query; 
     const hirer=await Hiring.find({_id:user_id})
-    if(hirer.length > 0 && hirer[0].isFirstTime){
+    if(hirer.isFirstTime){
         const posts = await PostModel.find({})
         return res.status(200).json({data: posts})
     }

@@ -52,9 +52,9 @@ const Navbar = () => {
     navigate('/profile')
   }
 
-  const goPostPage = () => {
-    navigate('/post')
-  }
+  // // const goPostPage = () => {
+  //   navigate('/post')
+  // }
 
   const logout = () => {
     localStorage.removeItem("user")
@@ -74,7 +74,7 @@ const Navbar = () => {
             <ul>
                 <li onClick={goHomePage}>Homepage</li>
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
-                <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li>
+                {/* <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li> */}
                 <li onClick={goSearchPage}>Search</li>
                 <li onClick={goProfilePage} className={postexist ? 'disabled' : ''}>Profile</li>
                 <li onClick={logout} className={loggedIn ? '' : 'disabled'}>Logout</li>

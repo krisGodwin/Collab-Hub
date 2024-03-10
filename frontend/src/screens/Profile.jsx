@@ -81,6 +81,7 @@ const Profile = () => {
     .then((response) => {
       if(response.status === 204){
         toast.success("Post Created")
+        localStorage.setItem("post","true")
         goSearchPage()
       }
       console.log(response.data);
@@ -104,6 +105,7 @@ const Profile = () => {
           console.log(response.data);
           if(response.status === 204){
             toast.success("Post Created")
+            localStorage.setItem("post","true")
             goSearchPage()
           }
         })

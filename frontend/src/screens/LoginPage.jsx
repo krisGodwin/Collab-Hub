@@ -52,6 +52,7 @@ const LoginPage = () => {
             })
             .catch((error) => {
               console.log(error)
+              notifyA(error.response.data.message)
             })
         };
 
@@ -81,6 +82,7 @@ const LoginPage = () => {
           })
           .catch((error) => {
             console.log(error)
+            notifyA(error.response.data.message)
           })
       };
 

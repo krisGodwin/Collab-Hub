@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 
 ratings=pd.read_csv('Final_ratings.csv')
-
+rating_column = ratings["rating"]
 
 
 def recommend(creator_id,attribute):
@@ -24,8 +24,6 @@ def recommend(creator_id,attribute):
     for i in sim_item:
         suggestions.append(uim.index[i[0]])
     return suggestions,sim_score
-
-
 
 def output(creator_id, k):
     df = pd.DataFrame()
@@ -43,6 +41,7 @@ CORS(app)
 def prediction():
     data = request.get_json()
     creator_id = data["id"]
+    print(type(creator_id))
     print(creator_id)
     result = output(creator_id, "rating")
     return jsonify({"ids": result})

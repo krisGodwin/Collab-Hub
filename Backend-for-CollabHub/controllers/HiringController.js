@@ -126,16 +126,16 @@ exports.AddContent = async(req,res) => {
 exports.GetAllPosts = async(req, res) => {
     const { user_id } = req.query; 
     const hirer=await Hiring.find({_id:user_id})
-    if(hirer.isFirstTime){
+    console.log(hirer[0].isFirstTime)
+    if(hirer[0].isFirstTime){
         const posts = await PostModel.find({})
         return res.status(200).json({data: posts})
     }
     else{
-        const posts = await hirer.populate('recommendations')
+        const posts = await hirer[0].populate('recommendations')
         console.log(posts.recommendations)
         return res.status(200).json({data: posts.recommendations})
     }
-    
 }
 
 exports.Counter = async(req,res) => {

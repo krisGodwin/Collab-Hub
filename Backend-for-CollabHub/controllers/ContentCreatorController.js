@@ -154,8 +154,9 @@ exports.GetOnePost = async (req, res) => {
             const user=await HiringModel.findOne({_id:user_id})
             if (user || user.isFirstTime) {
                 const response = await axios.post("http://localhost:5000/prediction", {
-                  id: posts[0].id,
+                  id:parseFloat (posts[0].id),
                 });
+
               const idsArray = response.data.ids.map(id => id.toString());
 
               // Using $in to find records with matching IDs

@@ -9,6 +9,8 @@ import '../css/profile.css';
 const Profile = () => {
   const [title, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [ytlink, setYtLink] = useState('')
+  const[instlink, setInstLink] = useState('')
   const [checked, setChecked] = useState([]);
   const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -70,6 +72,8 @@ const Profile = () => {
       axios.post(PROFILE_CC_URL, {
         title,
         description,
+        ytlink,
+        instlink,
         contenttypes,
         filename,
         contentCreatorType,
@@ -94,6 +98,8 @@ const Profile = () => {
       axios.post(PROFILE_HH_URL, {
         title,
         description,
+        ytlink,
+        instlink,
         contenttypes,
         filename,
         contentCreatorType,
@@ -121,6 +127,14 @@ const Profile = () => {
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
+  };
+
+  const handleYTChange = (e) => {
+    setYtLink(e.target.value);
+  };
+
+  const handleISNTGChange = (e) => {
+    setInstLink(e.target.value);
   };
 
   // const handleDropdownChange = (selected) => {
@@ -170,6 +184,30 @@ const Profile = () => {
                 />
                 <span className="placeholder">Description</span>
               </div>
+              <div className="input-block">
+              <input
+                type="text"
+                value={ytlink}
+                onChange={handleYTChange}
+                name="name"
+                id="input-text"
+                required
+                spellCheck="false"
+              />
+              <span className="placeholder">Youtube Link</span>
+            </div>
+            <div className="input-block">
+              <input
+                type="text"
+                value={instlink}
+                onChange={handleISNTGChange}
+                name="name"
+                id="input-text"
+                required
+                spellCheck="false"
+              />
+              <span className="placeholder">Instagram Link</span>
+            </div>
             <div className="app">
               <div className="checkList">
                 <div className="title">Select your content types</div>

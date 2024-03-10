@@ -14,6 +14,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    youtube_link: {
+        type: String,
+        required: true,
+    },
+    instagram_link: {
+        type: String,
+        required: true,
+    },
     image_url: {
         type: String,
         required: true,

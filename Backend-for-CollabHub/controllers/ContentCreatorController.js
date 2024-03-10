@@ -93,7 +93,7 @@ exports.Profile = async(req,res) => {
 }
 exports.AddContent = async(req,res) => {
     console.log(req.cookies.jwt)
-    const {title,description,contenttypes,contentCreatorType} = req.body;
+    const {title,description,ytlink,instlink,contenttypes,contentCreatorType} = req.body;
     const image_file = req.body.filename;
     const result = await cloudinary.uploader.upload(image_file, {
         folder: "products",
@@ -107,6 +107,8 @@ exports.AddContent = async(req,res) => {
             id:id,
             title : title,
             description : description,
+            youtube_link: ytlink,
+            instagram_link: instlink,
             image_url : result.url,
             contenttypes : ContentArray,
             contentCreator : req.userData["CC"].id,

@@ -21,7 +21,7 @@ const Profile = () => {
 
   const PROFILE_HH_URL = "http://localhost:8000/hiring/addpost";
 
-  const checkList = ["Tech", "Music", "Sport", "Food"];
+  const checkList = ["Tech", "Music", "Sport", "Entertainment"];
 
   const contentCreatorType = localStorage.getItem("user")
 

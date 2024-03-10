@@ -60,6 +60,7 @@ const Navbar = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     localStorage.removeItem("post")
+    localStorage.removeItem("user_id")
     goLoginPage()
   }
 

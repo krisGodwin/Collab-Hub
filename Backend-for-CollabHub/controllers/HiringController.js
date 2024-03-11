@@ -175,6 +175,8 @@ exports.GetOnePost = async (req, res) => {
                 _id: post._id,
                 title: post.title,
                 description: post.description,
+                youtube_link: post.youtube_link,
+                instagram_link: post.instagra_link,
                 image_url: post.image_url,
                 contenttypes: post.contenttypes
             }));

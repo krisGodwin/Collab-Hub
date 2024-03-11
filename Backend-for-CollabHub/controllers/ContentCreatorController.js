@@ -157,9 +157,9 @@ exports.GetOnePost = async (req, res) => {
                 _id: post._id,
                 title: post.title,
                 description: post.description,
-                image_url: post.image_url,
                 youtube_link:post.youtube_link,
                 instagram_link:post.instagram_link,
+                image_url: post.image_url,
                 contenttypes: post.contenttypes
             }));
             return res.status(200).json({ data: mappedResult });

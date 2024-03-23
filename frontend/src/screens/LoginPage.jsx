@@ -115,7 +115,7 @@ const LoginPage = () => {
           <>
             <Navbar />
             <div className="signup-container">
-        <div className="button-div">
+            <div className="button-div">
                 <button  onClick={changeToCreator}>Creator</button>
                 <button onClick={changeToSponsor}>Sponsor</button>
             </div>

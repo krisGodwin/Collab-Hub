@@ -16,6 +16,8 @@
   width: 100%;
   padding: 20px 30px;
   /* border-bottom: black 1px solid; */
+  position: fixed;
+  top: 0;
   color: #BFA181;
 }
 .navbar .logo h2{

@@ -77,7 +77,7 @@ const Navbar = () => {
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
                 {/* <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li> */}
                 <li onClick={goSearchPage}>Search</li>
-                <li onClick={goProfilePage} className={postexist ? 'disabled' : ''}>Profile</li>
+                <li onClick={goProfilePage} className={postexist || !loggedIn ? 'disabled' : ''}>Profile</li>
                 <li onClick={logout} className={loggedIn ? '' : 'disabled'}>Logout</li>
             </ul>
         </div>

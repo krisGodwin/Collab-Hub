@@ -63,31 +63,7 @@ app.use(cookieParser());
 
 const Chat = require('./models/Chat.js')
 
-app.get('/getmsgs', async (req, res) => {
-  const {sender, receiver} = req.query;
-  const messages = await Chat.find({
-    $or: [
-      { sender, receiver },
-      { sender: receiver, receiver: sender }
-    ]
-  });
-  res.json(messages);
-});
 
-app.post('/setchats', async (req, res) => {
-  const newMsg = await new Chat({
-    ...req.body,
-  });
-  await newMsg.save();
-  const {sender, receiver} = req.body;
-  const messages = await Chat.find({
-    $or: [
-      { sender: sender, receiver: receiver },
-      { sender: receiver, receiver: sender }
-    ]
-  });
-  res.json(messages);
-});
 
 app.use("/content",ContentCreatorRoute);
 app.use("/hiring",HiringRoute);
@@ -119,19 +95,7 @@ app.use((req, res, next) => {
       credentials: true,
     },
   });
-  io.on("connection", (socket) => {
-    console.log('connecting to socket')
-    socket.on("message", ({ message, senderId, senderName, club }) => {
-      // console.log('messaging', {message, senderId, senderName})
-      const newMsg = new Chat({
-        message,
-        senderId,
-        senderName,
-        club,
-      });
-      newMsg.save();
-      io.emit("message", { message, senderId, senderName });
-    });
+  
   
     // socket.on("add-user", (userId) => {
     //   onlineUsers.set(userId, socket.id);
@@ -160,15 +124,6 @@ app.use((req, res, next) => {
     // });
   
   
-    socket.on("msgsolo", (messageData) => {
-      console.log('ms', messageData)
-      const { sender, receiver, message } = messageData;
-      const messageToSend = {
-        sender,
-        receiver,
-        message,
-      };
-      io.emit("msgsolo", messageToSend);
-    });
-  });
+    
+
 module.exports = app;

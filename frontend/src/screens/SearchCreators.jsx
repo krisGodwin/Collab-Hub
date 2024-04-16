@@ -4,6 +4,8 @@ import '../css/searchpage.css'
 import data from '../data.js'
 import Card from '../components/Card.jsx'
 import axios from 'axios';
+// import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect, useCallback} from 'react'
 
 
@@ -13,6 +15,7 @@ const SearchCreators = () => {
   // eslint-disable-next-line
   const [filteredData, setFilteredData] = useState(data);
   const [userposts, setUserposts] = useState([])
+
 
   // eslint-disable-next-line
   const handleSearchInputChange = (e) => {
@@ -77,6 +80,7 @@ const SearchCreators = () => {
     const { data } = await axios.get(`http://localhost:8000/content/searchposts?title=${searchValue}`)
     console.log(data)
     setUserposts(data.searchResults)
+    console.log(userposts.length)
   }
 
 
@@ -93,11 +97,14 @@ const SearchCreators = () => {
           />
           <button class="search-button">🔍</button>
       </div>
-        <div className='search-div'>
+      { userposts.length === 0 ? <div class="error-div"><img src="./error.png" alt=""></img></div> 
+      : 
+      <div className='search-div'>
         {userposts.map((product, index) => (
           <Card key={index} creator={product} />
         ))}
-        </div>
+        </div>}
+        
     </>
   )
 }

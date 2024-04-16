@@ -1,0 +1,25 @@
+//Content Creator Routes
+
+
+Login: http://localhost:8000/content/login
+
+Register: http://localhost:8000/content/register
+
+Profile: http://localhost:8000/content/profile
+
+addPost: http://localhost:8000/content/addpost
+
+get individual Posts: http://localhost:8000/content/getposts
+
+
+//Sponsor Routes
+
+Login: http://localhost:8000/hiring/login
+
+Register: http://localhost:8000/hiring/register
+
+Profile: http://localhost:8000/hiring/profile
+
+Home: http://localhost:8000/hiring/home
+
+Individual Post: http://localhost:8000/hiring/Post

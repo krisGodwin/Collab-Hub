@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+
+}
+
+.navbar {
+  background-color: #0A1828;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+  width: 100%;
+  padding: 20px 30px;
+  /* border-bottom: black 1px solid; */
+  position: fixed;
+  top: 0;
+  color: #BFA181;
+  z-index: 1000
+}
+.navbar .logo h2{
+  background-color: #0A1828;;
+}
+.logo {
+   background-color: #0A1828;;
+  font-family: 'Lobster', sans-serif;
+  font-size: 30px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.logo img {
+  width: 120px;
+}
+
+.navbar .logo img{
+  background-color: #0A1828;
+}
+
+.links {
+  margin-left: auto;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  background-color: #0A1828;;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  align-items: center; /* Center items vertically */
+  margin-left: 10%;
+  margin-right: 100px;
+  background-color: transparent
+}
+
+
+ul li {
+  margin: 0 40px;
+  position: relative;
+  background-color: transparent
+}
+
+ul li::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Start from the center */
+  width: 0;
+  height: 2px;
+  background-color: #BFA181;
+  transition: width 0.3s ease-in-out;
+  margin-top: 1rem;
+  transform: translateX(-50%); /* Center the pseudo-element */
+}
+
+ul li:hover::before {
+  width: 100%;
+}
+
+.disabled {
+  pointer-events: none;
+  display: none;
+}
+

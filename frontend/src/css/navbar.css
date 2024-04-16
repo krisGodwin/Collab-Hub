@@ -19,6 +19,7 @@
   position: fixed;
   top: 0;
   color: #BFA181;
+  z-index: 1000
 }
 .navbar .logo h2{
   background-color: #0A1828;;

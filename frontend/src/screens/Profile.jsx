@@ -11,6 +11,8 @@ const Profile = () => {
   const [description, setDescription] = useState('');
   const [ytlink, setYtLink] = useState('')
   const[instlink, setInstLink] = useState('')
+  const[totalvideos, setTotalVideos] = useState('')
+  const[totalsubscriber, setTotalSubscribers] = useState('')
   const [checked, setChecked] = useState([]);
   const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -27,9 +29,9 @@ const Profile = () => {
 
   const contentCreatorType = localStorage.getItem("user")
 
-  const goCreator = () => {
-    navigate('/recommendation');
-  };
+  // const goCreator = () => {
+  //   navigate('/recommendation');
+  // };
 
   const handleCheck = (event) => {
     const { value, checked } = event.target;
@@ -74,6 +76,8 @@ const Profile = () => {
         description,
         ytlink,
         instlink,
+        totalvideos,
+        totalsubscriber,
         contenttypes,
         filename,
         contentCreatorType,
@@ -100,6 +104,8 @@ const Profile = () => {
         description,
         ytlink,
         instlink,
+        totalvideos,
+        totalsubscriber,
         contenttypes,
         filename,
         contentCreatorType,
@@ -136,6 +142,16 @@ const Profile = () => {
   const handleISNTGChange = (e) => {
     setInstLink(e.target.value);
   };
+
+  const handleTotalSubscriberChange = (e) => {
+    setTotalSubscribers(e.target.value)
+  }
+
+  const handleTotalVideosChange = (e) => {
+    setTotalVideos(e.target.value)
+  }
+
+
 
   // const handleDropdownChange = (selected) => {
   //   setSelectedOptions(selected.map(option => option.value));
@@ -207,6 +223,28 @@ const Profile = () => {
                 spellCheck="false"
               />
               <span className="placeholder">Instagram Link</span>
+            </div>
+            <div className="input-block">
+              <input
+                type="text"
+                value={totalvideos}
+                onChange={handleTotalVideosChange}
+                name="name"
+                id="input-text"
+                spellCheck="false"
+              />
+              <span className="placeholder">Total Videos</span>
+            </div>
+            <div className="input-block">
+              <input
+                type="text"
+                value={totalsubscriber}
+                onChange={handleTotalSubscriberChange}
+                name="name"
+                id="input-text"
+                spellCheck="false"
+              />
+              <span className="placeholder">Total Subscribers</span>
             </div>
             <div className="app">
               <div className="checkList">

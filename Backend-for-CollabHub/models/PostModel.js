@@ -26,18 +26,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // Subscriber_Count:{
-    //     type:Number,
-    //     required:true
-    // },
-    // No_of_videos:{
-    //     type:Number,
-    //     required:true
-    // },
-    // Total_Views:{
-    //     type:Number,
-    //     required:true
-    // },
+    Subscriber_Count:{
+        type:String,
+        default: "None"
+    },
+    No_of_videos:{
+        type:String,
+        default: "None"
+    },
     contenttypes: {
         type: [String],
         required: true,

@@ -34,10 +34,10 @@ const PostSchema = new mongoose.Schema({
     //     type:Number,
     //     required:true
     // },
-    // Total_Views:{
-    //     type:Number,
-    //     required:true
-    // },
+    Total_Views:{
+        type:Number,
+        required:true
+    },
     Subscriber_Count:{
         type:String,
         default: "None"

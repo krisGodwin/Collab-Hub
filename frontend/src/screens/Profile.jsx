@@ -13,6 +13,7 @@ const Profile = () => {
   const[instlink, setInstLink] = useState('')
   const[totalvideos, setTotalVideos] = useState('')
   const[totalsubscriber, setTotalSubscribers] = useState('')
+  const[totalviews, setTotalViews] = useState('')
   const [checked, setChecked] = useState([]);
   const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -79,6 +80,7 @@ const Profile = () => {
         instlink,
         totalvideos,
         totalsubscriber,
+        totalviews,
         contenttypes,
         filename,
         contentCreatorType,
@@ -244,6 +246,17 @@ const Profile = () => {
                 spellCheck="false"
               />
               <span className="placeholder">Total Subscribers</span>
+            </div>
+            <div className="input-block">
+              <input
+                type="text"
+                value={totalvideos}
+                onChange={handleTotalVideosChange}
+                name="name"
+                id="input-text"
+                spellCheck="false"
+              />
+              <span className="placeholder">Total Views</span>
             </div>
             <div className="app">
               <div className="checkList">

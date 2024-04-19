@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const BASE_URL = "http://localhost:5000";
-const API_BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "http://localhost:8000/api";
 const socket = io(`${BASE_URL}`);
 
 const PersonalChat = () => {
@@ -14,18 +14,25 @@ const PersonalChat = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `${API_BASE_URL}/user/${JSON.parse(localStorage.getItem("user"))._id}`,
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      }
-    )
+    const token = localStorage.getItem("token");
+    const user_id = localStorage.getItem("user_id");
+
+    console.log("token = ", token);
+    console.log("user_id = ", user_id);
+
+    fetch(`${API_BASE_URL}/user/${user_id}`, {
+      withCredentials: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
+
+        console.log(result)
         setUserId(result._id);
-        setUserName(result.name);
       });
   }, []);
 
@@ -61,13 +68,26 @@ const PersonalChat = () => {
   }, [userid]);
 
   useEffect(() => {
-    fetch(
-      `${API_BASE_URL}/all-users/${
-        JSON.parse(localStorage.getItem("user"))._id
-      }`
-    )
+
+    const token = localStorage.getItem("token");
+    const user_id = localStorage.getItem("user_id");
+
+    console.log("token = ", token);
+    console.log("user_id = ", user_id);
+
+
+    fetch(`${API_BASE_URL}/all-users/${user_id}`, {
+      withCredentials: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    } )
       .then((response) => response.json())
       .then((data) => {
+        console.log("data = ", data);
+
         setUsers(data);
       })
       .catch((error) => {
@@ -135,7 +155,7 @@ const PersonalChat = () => {
                     handleUserSelection(user);
                   }}
                 >
-                  {user.name}
+                  {user.email}
                 </p>
               </>
             ))}
@@ -144,7 +164,7 @@ const PersonalChat = () => {
         </div>
 
         <div>
-          <div>{selectedUser && <p>{selectedUser.name}</p>}</div>
+          <div>{selectedUser && <p>{selectedUser.email}</p>}</div>
 
           <div>
             {messages.map((message, index) => (

@@ -52,6 +52,10 @@ const Navbar = () => {
     navigate('/profile')
   }
 
+  const goPersonalChat = () => {
+    navigate('/personal-chat')
+  }
+
   // // const goPostPage = () => {
   //   navigate('/post')
   // }
@@ -74,6 +78,7 @@ const Navbar = () => {
         <div className="links">
             <ul>
                 <li onClick={goHomePage}>Homepage</li>
+                <li onClick={goPersonalChat}>Personal Chat</li>
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
                 {/* <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li> */}
                 <li onClick={goSearchPage}>Search</li>

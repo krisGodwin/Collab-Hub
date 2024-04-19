@@ -1,17 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const MESSAGE = require("../models/group_message");
 const PERSONAL_MESSAGE = require("../models/personal_message");
+const ContentCreatorModel = require("../models/ContentCreatorModel.js");
 
-router.get("/api/all-group-messages", async (req, res) => {
-  try {
-    const messages = await MESSAGE.find().sort({ createdAt: 1 });
-    res.json(messages);
-  } catch (error) {
-    console.error("Error fetching messages:", error);
-    res.status(500).json({ error: "Failed to fetch messages" });
-  }
-});
+const {UserModel,UserType} = require("../models/UserModel.js");
 
 router.get(
   "/api/all-personal-messages/:senderId/:receiverId",
@@ -34,23 +26,7 @@ router.get(
   }
 );
 
-router.post("/api/save-group-message", async (req, res) => {
-  const { message, sender_name, sender_id, sender_role } = req.body;
 
-  try {
-    const newMessage = new MESSAGE({
-      message: message,
-      sender_name: sender_name,
-      sender_id: sender_id,
-    });
-
-    const savedMessage = await newMessage.save();
-    res.json(savedMessage);
-  } catch (error) {
-    console.error("Error saving message:", error);
-    res.status(500).json({ error: "Failed to save message" });
-  }
-});
 
 router.post("/api/save-personal-message", async (req, res) => {
   const { message, sender_name, receiver_name, sender_id, receiver_id } =
@@ -72,5 +48,33 @@ router.post("/api/save-personal-message", async (req, res) => {
     res.status(500).json({ error: "Failed to save personal message" });
   }
 });
+
+
+router.get("/api/all-users/:id", async (req, res, next) => {
+  try {
+    const users = await ContentCreatorModel.find({ _id: { $ne: req.params.id } }).select([
+      "email",
+      "_id",
+    ]);
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+router.get("/api/user/:id", (req, res) => {
+  ContentCreatorModel.findOne({ _id: req.params.id })
+    .select("-password")
+    .then((user) => {
+      console.log(user)
+
+      return res.json(user);
+    })
+    .catch((err) => {
+      return res.status(404).json({ error: "User not found." });
+    });
+});
+
+
 
 module.exports = router;

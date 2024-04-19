@@ -4,6 +4,7 @@ const PERSONAL_MESSAGE = require("../models/personal_message");
 const ContentCreatorModel = require("../models/ContentCreatorModel.js");
 
 const {UserModel,UserType} = require("../models/UserModel.js");
+const Hiring = require("../models/HiringModel.js");
 
 router.get(
   "/api/all-personal-messages/:senderId/:receiverId",
@@ -52,18 +53,18 @@ router.post("/api/save-personal-message", async (req, res) => {
 
 router.get("/api/all-users/:id", async (req, res, next) => {
   try {
-    const users = await ContentCreatorModel.find({ _id: { $ne: req.params.id } }).select([
+    const contentusers = await Hiring.find({ _id: { $ne: req.params.id } }).select([
       "email",
       "_id",
-    ]);
-    return res.json(users);
+    ]); 
+    return res.json(contentusers);
   } catch (ex) {
     next(ex);
   }
 });
 
 router.get("/api/user/:id", (req, res) => {
-  ContentCreatorModel.findOne({ _id: req.params.id })
+  Hiring.findOne({ _id: req.params.id })
     .select("-password")
     .then((user) => {
       console.log(user)

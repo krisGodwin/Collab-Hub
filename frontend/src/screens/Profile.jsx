@@ -153,6 +153,9 @@ const Profile = () => {
   const handleTotalVideosChange = (e) => {
     setTotalVideos(e.target.value)
   }
+  const handleTotalViewsChange = (e) => {
+    setTotalViews(e.target.value)
+  }
 
   // const handleDropdownChange = (selected) => {
   //   setSelectedOptions(selected.map(option => option.value));
@@ -250,8 +253,8 @@ const Profile = () => {
             <div className="input-block">
               <input
                 type="text"
-                value={totalvideos}
-                onChange={handleTotalVideosChange}
+                value={totalviews}
+                onChange={handleTotalViewsChange}
                 name="name"
                 id="input-text"
                 spellCheck="false"

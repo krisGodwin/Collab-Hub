@@ -93,7 +93,7 @@ exports.Profile = async(req,res) => {
 }
 exports.AddContent = async(req,res) => {
     console.log(req.cookies.jwt)
-    const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,contentCreatorType} = req.body;
+    const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,totalviews,contentCreatorType} = req.body;
     const image_file = req.body.filename;
     const result = await cloudinary.uploader.upload(image_file, {
         folder: "products",
@@ -111,6 +111,7 @@ exports.AddContent = async(req,res) => {
             instagram_link: instlink,
             Subscriber_Count: totalsubscriber,
             No_of_videos: totalvideos,
+            Total_Views:totalviews,
             image_url : result.url,
             contenttypes : ContentArray,
             contentCreator : req.userData["CC"].id,
@@ -170,11 +171,9 @@ exports.GetOnePost = async (req, res) => {
 
 exports.fetchRecommendedPosts = async (req, res) => {
     const recommendedIds = req.body.recommendedIds; // Assuming you're getting an array of recommended IDs from req.body
-
     try {
         // Find posts with IDs in the recommendedIds array
         const recommendedPosts = await PostModel.find({ _id: { $in: recommendedIds } });
-        
         // Send the recommended posts as a response
         res.json({ recommendedPosts });
     } catch (error) {

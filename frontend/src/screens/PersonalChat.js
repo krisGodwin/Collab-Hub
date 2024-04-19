@@ -32,7 +32,7 @@ const PersonalChat = () => {
       .then((result) => {
 
         console.log(result)
-        setUserId(result._id);
+    setUserId(user_id);
       });
   }, []);
 
@@ -40,7 +40,7 @@ const PersonalChat = () => {
     if (selectedUser) {
       fetch(
         `${API_BASE_URL}/all-personal-messages/${
-          JSON.parse(localStorage.getItem("user"))._id
+          localStorage.getItem("user_id")
         }/${selectedUser._id}`
       )
         .then((response) => response.json())
@@ -105,7 +105,7 @@ const PersonalChat = () => {
 
   const sendPersonalMessage = () => {
     if (selectedUser) {
-      const senderId = JSON.parse(localStorage.getItem("user"))._id;
+      const senderId = localStorage.getItem("user_id");
 
       socket.emit("personal-message", {
         message: inputValue,

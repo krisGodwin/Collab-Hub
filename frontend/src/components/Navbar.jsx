@@ -78,7 +78,7 @@ const Navbar = () => {
         <div className="links">
             <ul>
                 <li onClick={goHomePage}>Homepage</li>
-                <li onClick={goPersonalChat}>Personal Chat</li>
+                <li onClick={goPersonalChat} className={postexist || !loggedIn ? 'disabled' : ''}>Messages</li>
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
                 {/* <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li> */}
                 <li onClick={goSearchPage}>Search</li>

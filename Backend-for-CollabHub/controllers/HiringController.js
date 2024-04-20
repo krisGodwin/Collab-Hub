@@ -13,13 +13,14 @@ const axios = require('axios');
 const Hiring = require("../models/HiringModel.js");
 exports.Register = async(req,res) => {
     try {
-        const {email,password,Hirer} = req.body;
+        const {name,email,password,Hirer} = req.body;
         let Hiring = await HiringModel.findOne({email : email});
         if(Hiring){
             return res.status(400).json({message : "User Already Present"});
         }
         const HiringNew = new HiringModel({
             _id : new mongoose.Types.ObjectId(),
+            name: name,
             email : email,
             contentCreatorType:Hirer
         });
@@ -47,7 +48,7 @@ exports.Login = async(req,res) => {
         const HirerPresent = await HiringModel.findOne({email : email});
         if(!HirerPresent){
             return res.status(400).json({message : "Content Creator not Present"});
-        }
+        } 
         const isMatch = await bcrypt.compare(password,HirerPresent.password);
         if(!isMatch){
             return res.status(400).json({message : "Incorrect password"});
@@ -62,12 +63,12 @@ exports.Login = async(req,res) => {
         if(Postexists){
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-                res.status(200).json({_id : HirerPresent._id,_token : token, _post: true})
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: true,name: HirerPresent.name})
             })
         } else {
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-                res.status(200).json({_id : HirerPresent._id,_token : token, _post: false})
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: false, name: HirerPresent.name})
             })
         }
         

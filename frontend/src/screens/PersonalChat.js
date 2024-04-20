@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import "../css/personalchat.css"
+import Navbar from '../components/Navbar'
 
 const BASE_URL = "http://localhost:8000";
 const API_BASE_URL = "http://localhost:8000/api";
@@ -7,11 +9,15 @@ const socket = io(`${BASE_URL}`);
 
 const PersonalChat = () => {
   const [userid, setUserId] = useState("");
-  const [username, setUserName] = useState("");
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
+  const [chats, viewChats] = useState(false);
+
+
+  const user_type = localStorage.getItem("user")
+  const user_name = localStorage.getItem("username")
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -75,25 +81,45 @@ const PersonalChat = () => {
     console.log("token = ", token);
     console.log("user_id = ", user_id);
 
-
-    fetch(`${API_BASE_URL}/all-users/${user_id}`, {
-      withCredentials: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    } )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data = ", data);
-
-        setUsers(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching personal users:", error);
-      });
-  }, []);
+    if(user_type === "CC"){
+      fetch(`${API_BASE_URL}/all-users/${user_id}`, {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      } )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data = ", data);
+  
+          setUsers(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching personal users:", error);
+        });
+    } else {
+      fetch(`${API_BASE_URL}/content/${user_id}`, {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      } )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data = ", data);
+  
+          setUsers(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching personal users:", error);
+        });
+    }
+   
+  }, [user_type]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -106,11 +132,11 @@ const PersonalChat = () => {
   const sendPersonalMessage = () => {
     if (selectedUser) {
       const senderId = localStorage.getItem("user_id");
-
+      console.log(selectedUser)
       socket.emit("personal-message", {
         message: inputValue,
-        sender_name: username,
-        receiver_name: selectedUser.name,
+        sender_name: "kris",
+        receiver_name: selectedUser.email,
         sender_id: senderId,
         receiver_id: selectedUser._id,
         createdAt: new Date().toISOString(),
@@ -123,8 +149,8 @@ const PersonalChat = () => {
         },
         body: JSON.stringify({
           message: inputValue,
-          sender_name: username,
-          receiver_name: selectedUser.name,
+          sender_name: "kris",
+          receiver_name: selectedUser.email,
           sender_id: senderId,
           receiver_id: selectedUser._id,
         }),
@@ -141,85 +167,122 @@ const PersonalChat = () => {
 
   return (
     <>
-      <div>
-        <div>
-          <h2>{username}</h2>
-
-          <div>
-            <div>Click on username to chat with him</div>
-            {users.map((user) => (
-              <>
-                <p
-                  key={user._id}
-                  onClick={() => {
-                    handleUserSelection(user);
-                  }}
-                >
-                  {user.email}
-                </p>
-              </>
-            ))}
-            <hr />
+    <Navbar />
+  <div className="perschat">
+    <div>
+      <div className="bodyy">
+        <div className="chatcont">
+          <div className="cinfo">
+            <div className="myinfo">
+              {/* <img id="profpicc" src="./profileimage.jpg" alt="" srcset="" /> */}
+              <h2>{user_name}</h2>
+            </div>
+            <div className="userss">
+              {users.map((user) => (
+                <>
+                  <p
+                    key={user._id}
+                    onClick={() => {
+                      handleUserSelection(user);
+                      viewChats("active");
+                    }}
+                  > 
+                   {user.name}
+                  </p>
+                  <hr />
+                </>
+              ))}
+            </div>
           </div>
-        </div>
+          <hr id="midhr" />
 
-        <div>
-          <div>{selectedUser && <p>{selectedUser.email}</p>}</div>
-
-          <div>
-            {messages.map((message, index) => (
-              <>
-                {message.sender_id === userid ? (
-                  <>
-                    <div>
-                      <p key={index}>
-                        <div>{message.message}</div>
-                        <span>
-                          {new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </span>
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <p key={index}>
-                        <p>{message.message}</p>
-
-                        <p>
-                          {new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
+          <div className={`selchat ${chats && "active"}`}>
+            <div className="seluser">
+              {selectedUser && (
+                <div className="userssasd">
+                  <img
+                    onClick={() => {
+                      viewChats(false);
+                    }}
+                    id="sdbackpn"
+                    src="./back.png"
+                    alt=""
+                  />
+                  <img
+                    id="profpicc"
+                    src="./profile-pic.png"
+                    alt=""
+                    srcset=""
+                  />
+                  <p>{selectedUser.name}</p>
+                </div>
+              )}
+            </div>
+            <div className="messages">
+              {messages.map((message, index) => (
+                <>
+                  {message.sender_id === userid ? (
+                    <>
+                      <div className="sender-mess">
+                        <p className="flexdisp" key={index}>
+                          <p>{message.message}</p>
+                          <div className="datemesss">
+                            {new Date(message.createdAt).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              }
+                            )}
+                          </div>
                         </p>
-                      </p>
-                    </div>
-                  </>
-                )}
-              </>
-            ))}
-          </div>
-
-          <div>
-            <input
-              placeholder="Type your message here.."
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-
-            <button onClick={sendPersonalMessage} disabled={!selectedUser}>
-              Send
-            </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="received-msg">
+                        <p className="flexdisp" key={index}>
+                          <p>{message.message}</p>
+                          <div className="datemess">
+                            {new Date(message.createdAt).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              }
+                            )}
+                          </div>
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </>
+              ))}
+            </div>
+            <div className="submitmenu">
+              <input
+                placeholder="Type your message here.."
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <button
+                onClick={sendPersonalMessage}
+                disabled={!selectedUser}
+                className="button"
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
+
   );
 };
 

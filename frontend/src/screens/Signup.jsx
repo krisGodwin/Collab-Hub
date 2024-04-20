@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
 const Signup = () => {
-
-  const [email, setEmail] = useState('');
+        const [name, setName] = useState('')
+        const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
       
         const handleEmailChange = (e) => {
@@ -18,6 +18,10 @@ const Signup = () => {
       
         const handlePasswordChange = (e) => {
           setPassword(e.target.value);
+        };
+
+        const handleNameChange = (e) => {
+          setName(e.target.value);
         };
 
         const REGISTER_CC_URL = "http://localhost:8000/content/register"
@@ -52,6 +56,7 @@ const Signup = () => {
           }
 
             axios.post(REGISTER_CC_URL, {
+              name,
               email,
               password,
               contentCreator
@@ -75,6 +80,7 @@ const Signup = () => {
         const handleSubmitHH = (e) => {
           e.preventDefault();
           axios.post(REGISTER_HH_URL, {
+            name,
             email,
             password,
             Hirer
@@ -117,6 +123,18 @@ const Signup = () => {
             <form onSubmit={handleSubmitCC} className="login-form">
             <div className="input-block">
                     <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      name="email"
+                      id="input-text"
+                      required
+                      spellCheck="false"
+                    />
+                    <span className="placeholder">UserName</span>
+            </div>
+            <div className="input-block">
+                    <input
                       type="email"
                       value={email}
                       onChange={handleEmailChange}
@@ -150,6 +168,18 @@ const Signup = () => {
          <img src="./logo.png" alt=""></img>
              <h2 className="login-title">Sign-up into CollabHub as a Sponsor</h2>
          <form onSubmit={handleSubmitHH} className="login-form">
+         <div className="input-block">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      name="email"
+                      id="input-text"
+                      required
+                      spellCheck="false"
+                    />
+                    <span className="placeholder">UserName</span>
+            </div>
          <div className="input-block">
                     <input
                       type="email"

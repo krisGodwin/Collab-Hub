@@ -40,6 +40,7 @@ const LoginPage = () => {
               if(response.status === 200){
                 toast.success("User Logged in");
                 localStorage.setItem('user', "CC")
+                localStorage.setItem('username',response.data.name)
                 localStorage.setItem("token",response.data._token)
                 localStorage.setItem("user_id",response.data._id)
                 localStorage.setItem("post",response.data._post)
@@ -71,6 +72,7 @@ const LoginPage = () => {
             if(response.status=== 200){
               toast.success("User Logged in");
               localStorage.setItem('user', "HH")
+              localStorage.setItem('username',response.data.name)
               localStorage.setItem("token",response.data._token)
               localStorage.setItem("user_id",response.data._id)
               localStorage.setItem("post",response.data._post)

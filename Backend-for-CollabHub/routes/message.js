@@ -53,9 +53,23 @@ router.post("/api/save-personal-message", async (req, res) => {
 
 router.get("/api/all-users/:id", async (req, res, next) => {
   try {
-    const contentusers = await Hiring.find({ _id: { $ne: req.params.id } }).select([
+    const hiringusers = await Hiring.find({ _id: { $ne: req.params.id } }).select([
       "email",
       "_id",
+      "name"
+    ]); 
+    return res.json(hiringusers);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+router.get("/api/content/:id", async (req, res, next) => {
+  try {
+    const contentusers = await ContentCreatorModel.find({ _id: { $ne: req.params.id } }).select([
+      "email",
+      "_id",
+      "name"
     ]); 
     return res.json(contentusers);
   } catch (ex) {

@@ -15,13 +15,14 @@ const axios = require('axios');
 //const MessageModel = require("../models/MessageModel.js");
 exports.Register = async(req,res) => {
     try {
-        const {email,password,contentCreator,contenttype} = req.body;
+        const {name,email,password,contentCreator,contenttype} = req.body;
         let creator = await ContentCreatorModel.findOne({email : email});
         if(creator){
             return res.status(400).json({message : "User Already Present"});
         }
         const creatorNew = new ContentCreatorModel({
             _id : new mongoose.Types.ObjectId(),
+            name: name,
             email : email,
             contentCreatorType:contentCreator
         });
@@ -73,12 +74,12 @@ exports.Login = async(req,res) => {
         if(Postexists){
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: true})
+                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: true, name: ContentCreatorPresent.name})
             })
         } else {
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: false})
+                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: false, name: ContentCreatorPresent.name})
             })
         }
         

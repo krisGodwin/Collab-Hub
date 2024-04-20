@@ -120,7 +120,6 @@ const PersonalChat = () => {
     }
    
   }, [user_type]);
-
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -135,8 +134,8 @@ const PersonalChat = () => {
       console.log(selectedUser)
       socket.emit("personal-message", {
         message: inputValue,
-        sender_name: "kris",
-        receiver_name: selectedUser.email,
+        sender_name: user_name,
+        receiver_name: selectedUser.name,
         sender_id: senderId,
         receiver_id: selectedUser._id,
         createdAt: new Date().toISOString(),
@@ -149,8 +148,8 @@ const PersonalChat = () => {
         },
         body: JSON.stringify({
           message: inputValue,
-          sender_name: "kris",
-          receiver_name: selectedUser.email,
+          sender_name: user_name,
+          receiver_name: selectedUser.name,
           sender_id: senderId,
           receiver_id: selectedUser._id,
         }),
@@ -195,7 +194,7 @@ const PersonalChat = () => {
             </div>
           </div>
           <hr id="midhr" />
-
+{/* Div for message */}
           <div className={`selchat ${chats && "active"}`}>
             <div className="seluser">
               {selectedUser && (

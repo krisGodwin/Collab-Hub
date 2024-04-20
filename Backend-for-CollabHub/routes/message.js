@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const PERSONAL_MESSAGE = require("../models/personal_message");
 const ContentCreatorModel = require("../models/ContentCreatorModel.js");
-
 const {UserModel,UserType} = require("../models/UserModel.js");
 const Hiring = require("../models/HiringModel.js");
-
 router.get(
   "/api/all-personal-messages/:senderId/:receiverId",
   async (req, res) => {
@@ -26,9 +24,6 @@ router.get(
     }
   }
 );
-
-
-
 router.post("/api/save-personal-message", async (req, res) => {
   const { message, sender_name, receiver_name, sender_id, receiver_id } =
     req.body;
@@ -41,7 +36,6 @@ router.post("/api/save-personal-message", async (req, res) => {
       sender_id: sender_id,
       receiver_id: receiver_id,
     });
-
     const savedMessage = await newMessage.save();
     res.json(savedMessage);
   } catch (error) {
@@ -49,8 +43,6 @@ router.post("/api/save-personal-message", async (req, res) => {
     res.status(500).json({ error: "Failed to save personal message" });
   }
 });
-
-
 router.get("/api/all-users/:id", async (req, res, next) => {
   try {
     const hiringusers = await Hiring.find({ _id: { $ne: req.params.id } }).select([
@@ -63,7 +55,6 @@ router.get("/api/all-users/:id", async (req, res, next) => {
     next(ex);
   }
 });
-
 router.get("/api/content/:id", async (req, res, next) => {
   try {
     const contentusers = await ContentCreatorModel.find({ _id: { $ne: req.params.id } }).select([

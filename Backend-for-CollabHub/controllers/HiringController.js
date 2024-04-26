@@ -170,7 +170,7 @@ exports.GetAlPosts = async(req, res) => {
         const posts = await PostModel.find({contentCreatorType:"CC" })
         return res.status(200).json({data: posts})
 
-    }
+    } 
     else{ 
         const posts = await hirer[0].populate('recommendations')
         // console.log(posts.recommendations)

@@ -36,7 +36,6 @@ const PostSchema = new mongoose.Schema({
     // },
     Total_Views:{
         type:String,
-        required:true
     },
     Subscriber_Count:{
         type:String,

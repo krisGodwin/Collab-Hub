@@ -44,9 +44,9 @@ const Navbar = () => {
     navigate('/search')
   }
 
-  const goHomePage = () => {
-    navigate('/')
-  }
+  // const goHomePage = () => {
+  //   navigate('/')
+  // }
 
   const goProfilePage = () => {
     navigate('/profile')
@@ -54,6 +54,10 @@ const Navbar = () => {
 
   const goPersonalChat = () => {
     navigate('/personal-chat')
+  }
+
+  const goUpdateProfile = () => {
+    navigate('/update-profile')
   }
 
   // // const goPostPage = () => {
@@ -77,12 +81,13 @@ const Navbar = () => {
         </div> 
         <div className="links">
             <ul>
-                <li onClick={goHomePage}>Homepage</li>
+                {/* <li onClick={goHomePage}>Homepage</li> */}
                 <li onClick={goPersonalChat} className={!postexist || !loggedIn ? 'disabled' : ''}>Messages</li>
                 <li onClick={goLoginPage} className={loggedIn ? 'disabled' : ''}>Login</li>
                 {/* <li onClick={goPostPage} className={isCreatorLoggedIn ? 'disabled' : ''}>Post</li> */}
                 <li onClick={goSearchPage}>Search</li>
                 <li onClick={goProfilePage} className={postexist || !loggedIn ? 'disabled' : ''}>Profile</li>
+                <li onClick={goUpdateProfile} className={!postexist || !loggedIn ? 'disabled' : ''}>Update Profile</li>
                 <li onClick={logout} className={loggedIn ? '' : 'disabled'}>Logout</li>
             </ul>
         </div>

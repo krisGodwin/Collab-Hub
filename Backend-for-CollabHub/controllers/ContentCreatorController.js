@@ -129,6 +129,50 @@ exports.AddContent = async(req,res) => {
     
 }
 
+exports.GetContent = async(req, res) => {
+    const { user_id } = req.query
+    const posts = await PostsModel.find({ contentCreator : user_id})
+    return res.status(200).json({data: posts})
+}
+
+exports.UpdatePost = async(req, res) => {
+    const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,totalviews,contentCreatorType} = req.body;
+    const image_file = req.body.filename;
+    await PostsModel.deleteMany({ contentCreator: req.userData['CC'].id });
+    const result = await cloudinary.uploader.upload(image_file, {
+        folder: "products",
+        // width: 300,
+        // crop: "scale"
+    })
+    const id=uuidv4()
+
+    const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+    console.log(ContentArray[0])
+        const newPost = new PostsModel({
+            id:id,
+            title : title,
+            description : description,
+            youtube_link: ytlink,
+            instagram_link: instlink,
+            Subscriber_Count: totalsubscriber,
+            No_of_videos: totalvideos,
+            Total_Views:totalviews,
+            image_url : result.url,
+            contenttypes : ContentArray,
+            contentCreator : req.userData["CC"].id,
+            contentCreatorType: contentCreatorType
+        });
+        await newPost.save() 
+        const newCC = new CC({
+            Creator_id:id,
+            contenttypes : ContentArray[0],
+            post_id: newPost._id,
+        });
+        await newCC.save() 
+        return res.status(204).json({})
+    
+}
+
 exports.SearchPosts = async(req, res) => {
     const searchQuery = req.query.title; // Assuming you're sending the search query as a query parameter named 'title'
     

@@ -101,6 +101,40 @@ exports.Home = async(req,res) => {
     }
     
 }
+exports.GetContent = async(req, res) => {
+    const { user_id } = req.query
+    const posts = await PostModel.find({ contentCreator : user_id})
+    return res.status(200).json({data: posts})
+}
+
+exports.UpdatePost = async(req, res) => {
+    const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,totalviews,contentCreatorType} = req.body;
+    const image_file = req.body.filename;
+    await PostModel.deleteMany({ contentCreator: req.userData['HH'].id });
+    const result = await cloudinary.uploader.upload(image_file, {
+        folder: "products",
+        // width: 300,
+        // crop: "scale"
+    })
+    const id=uuidv4()
+
+    const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+    console.log(ContentArray[0])
+        const newPost = new PostModel({
+            id:id,
+            title : title,
+            description : description,
+            youtube_link: ytlink,
+            instagram_link: instlink,
+            image_url : result.url,
+            contenttypes : ContentArray,
+            contentCreator : req.userData["HH"].id,
+            contentCreatorType: contentCreatorType
+        });
+        await newPost.save() 
+        return res.status(204).json({})
+    
+}
 exports.AddContent = async(req,res) => {
     console.log(req.cookies.jwt)
     const {title,description,ytlink,instlink,contenttypes, contentCreatorType} = req.body;

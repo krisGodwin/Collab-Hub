@@ -11,5 +11,7 @@ router.get("/searchposts",ContentCreatorController.SearchPosts)
 router.get("/getallposts",ContentCreatorController.GetAllPosts)
 router.get("/getonepost",ContentCreatorController.GetOnePost)
 router.get("/getposts",AuthCheckerContent,ContentCreatorController.GetPosts);
+router.post("/updatepost",AuthCheckerContent,fileUpload.single("image"),ContentCreatorController.UpdatePost)
+router.get("/getcontent",ContentCreatorController.GetContent)
 //router.post("/message",ContentCreatorController.AddDatainMessageModel);
 module.exports = router;

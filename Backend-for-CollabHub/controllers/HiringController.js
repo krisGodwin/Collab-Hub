@@ -166,7 +166,7 @@ exports.AddContent = async(req,res) => {
 exports.GetAlPosts = async(req, res) => {
     const { user_id } = req.query; 
     const hirer=await Hiring.find({_id:user_id})
-    console.log(hirer[0].isFirstTime)
+    //console.log(hirer[0].isFirstTime)
     if(hirer[0].isFirstTime){
         const posts = await PostModel.find({contentCreatorType:"CC" })
         return res.status(200).json({data: posts})
@@ -193,12 +193,15 @@ exports.GetOnePost = async (req, res) => {
             //console.log(user.name)
             //console.log(posts[0].id)
             if (user || user.isFirstTime) {
+                //console.log(posts[0]._id)
                 const response = await axios.post("http://localhost:5000/prediction", {
-                  id:parseFloat (posts[0].id),
+                  id:posts[0]._id,
                 });
+
               const idsArray = response.data.ids.map(id => id.toString());
               // Using $in to find records with matching IDs
-              const rec1 = await PostModel.find({ id: { $in: idsArray } });
+              const rec1 = await PostModel.find({ _id: { $in: idsArray } });
+              //console.log(rec1)
                 user.isFirstTime = false;
              // Push the _ids of rec1 to the recommendations field
                 user.recommendations = rec1.map(post => post._id);
@@ -207,14 +210,15 @@ exports.GetOnePost = async (req, res) => {
                 await user.save()
                 const user_posts = await PostModel.find({ contentCreator: user_id })
             //console.log(user_posts[0].contenttypes[0])
-            const existingRating = await Rating.findOne({ sponsor_id: id, creator_id: user_id });
+            const existingRating = await Rating.findOne({ sponsor_id: user_id, creator_id: id });
+            //console.log(id)
             if (existingRating) {
                 existingRating.click_count++; // Increment click count
                 await existingRating.save(); // Save the updated rating
             } else {
             const rating = new Rating({
-                sponsor_id: id, 
-                creator_id: user_id,
+                sponsor_id: user_id, 
+                creator_id: id,
                 sponsor_type:user_posts[0].contenttypes[0],
                 creator_type:posts[0].contenttypes[0],
                 Fix_rating:parseInt((0.2*posts[0].Total_Views)+(0.4*posts[0].Subscriber_Count)+(0.2*posts[0].No_of_videos)),

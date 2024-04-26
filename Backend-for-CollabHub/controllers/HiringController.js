@@ -167,11 +167,11 @@ exports.GetAlPosts = async(req, res) => {
     const hirer=await Hiring.find({_id:user_id})
     console.log(hirer[0].isFirstTime)
     if(hirer[0].isFirstTime){
-        const posts = await PostModel.find({})
+        const posts = await PostModel.find({contentCreatorType:"CC" })
         return res.status(200).json({data: posts})
 
     }
-    else{
+    else{ 
         const posts = await hirer[0].populate('recommendations')
         // console.log(posts.recommendations)
         return res.status(200).json({data: posts.recommendations})
@@ -209,6 +209,7 @@ exports.GetOnePost = async (req, res) => {
             const mappedResult = posts.map(post => ({
                 _id: post._id,
                 title: post.title,
+                userid: post.contentCreator,
                 description: post.description,
                 youtube_link: post.youtube_link,
                 instagram_link: post.instagra_link,

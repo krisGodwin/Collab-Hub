@@ -189,7 +189,7 @@ exports.SearchPosts = async(req, res) => {
 }
 
 exports.GetAllPosts = async(req, res) => {
-    const posts = await PostsModel.find({ contentCreatorType:"CC" })
+    const posts = await PostsModel.find({ contentCreatorType:"HH" })
     return res.status(200).json({data: posts})
 }
 
@@ -203,6 +203,7 @@ exports.GetOnePost = async (req, res) => {
             }
             const mappedResult = posts.map(post => ({
                 _id: post._id,
+                userid: post.contentCreator,
                 title: post.title,
                 description: post.description,
                 youtube_link:post.youtube_link,

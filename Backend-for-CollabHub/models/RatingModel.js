@@ -3,10 +3,12 @@ const mongoose=require('mongoose');
 const ratingModelSchema=new mongoose.Schema(
     {
         sponsor_id:{
-
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Hiring"
         },
         creator_id:{
-
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
         },
         Total_Views:{
             type:String,

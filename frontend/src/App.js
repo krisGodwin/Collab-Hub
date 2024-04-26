@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Recommendations from './screens/Recommendations';
 import PersonalChat from './screens/PersonalChat';
 import UpdateProfile from './screens/UpdateProfile';
+import SingleChat from './screens/SingleChat';
 import './App.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path='/post' element={<Post />}></Route>
           <Route path="/personal-chat" element={<PersonalChat />}></Route>
           <Route path="/update-profile" element={<UpdateProfile />}></Route>
+          <Route path="/singlechat/:id" element={<SingleChat />}></Route>
           <Route path='/recommendation' element={<Recommendations />}></Route>
         </Routes>
         <ToastContainer />

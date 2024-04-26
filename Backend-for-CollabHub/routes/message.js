@@ -81,6 +81,31 @@ router.get("/api/user/:id", (req, res) => {
     });
 });
 
+router.get("/api/all-users/personal/:id", async (req, res, next) => {
+  try {
+    const hiringusers = await Hiring.find({ _id: req.params.id  }).select([
+      "email",
+      "_id",
+      "name"
+    ]); 
+    return res.json(hiringusers);
+  } catch (ex) {
+    next(ex); 
+  }
+});
+router.get("/api/content/personal/:id", async (req, res, next) => {
+  try {
+    const contentusers = await ContentCreatorModel.find({ _id: req.params.id  }).select([
+      "email",
+      "_id",
+      "name"
+    ]); 
+    return res.json(contentusers);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 
 
 module.exports = router;

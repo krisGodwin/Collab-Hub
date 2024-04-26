@@ -18,7 +18,7 @@ const PersonalChat = () => {
 
   const user_type = localStorage.getItem("user")
   const user_name = localStorage.getItem("username")
-
+  console.log(user_name)
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user_id = localStorage.getItem("user_id");

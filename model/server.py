@@ -9,14 +9,26 @@ from sklearn.metrics.pairwise import pairwise_distances
 from math import sqrt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
+from pymongo import MongoClient
 
-ratings=pd.read_csv('Final_ratings.csv')
-rating_column = ratings["rating"]
-
-
+client = MongoClient("mongodb+srv://kaushikap3001:1pmEWZfyu4YUHpuR@cluster0.xouu6el.mongodb.net/Collab_hub?retryWrites=true&w=majority&appName=Cluster0")
+db = client['Collab_hub'] 
+rating = db['ratings']
+ratings = pd.DataFrame(list(cursor))
+cursor = rating.find({})  
+client.close()
+mask = (ratings['sponsor_type'] == ratings['creator_type']) | (ratings['Fix_rating'] * ratings['click_count'] > 1000)
+filtered_ratings = ratings[mask]
+recommend_rating = pd.DataFrame({
+    'sponsor_id': filtered_ratings['sponsor_id'],
+    'creator_id': filtered_ratings['creator_id'],
+    'Rating': (filtered_ratings['Fix_rating']) +(0.2* filtered_ratings['click_count'])
+})
+rating_column = recommend_rating["Rating"]
+print(recommend_rating)
 def recommend(creator_id,attribute):
     suggestions=[]
-    uim=ratings.pivot_table(index='creator_id',columns='sponsor_id',values=attribute)
+    uim=recommend_rating.pivot_table(index='creator_id',columns='sponsor_id',values=attribute)
     uim.fillna(0,inplace=True)
     sim_score=cosine_similarity(uim)
     index=np.where(uim.index==creator_id)[0][0]
@@ -43,7 +55,7 @@ def prediction():
     creator_id = data["id"]
     print(type(creator_id))
     print(creator_id)
-    result = output(creator_id, "rating")
+    result = output(creator_id, "Rating")
     return jsonify({"ids": result})
 
 

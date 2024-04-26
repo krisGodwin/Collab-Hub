@@ -10,23 +10,20 @@ const ratingModelSchema=new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Post"
         },
-        Total_Views:{
-            type:String,
-            required:true
+        sponsor_type:{
+        type:String,
         },
-        Subscriber_Count:{
-            type:String,
-            default: "None"
+        creator_type:{
+            type:String
         },
-        No_of_videos:{
-            type:String,
-            default: "None"
+        Fix_rating:{
+            type:Number
         },
-        clickcount:{
+        click_count:{
             type:Number,
             default:0
         }
     }
 )
-
-module.exports=mongoose.model("Rating",ratingModelSchema);
+const Rating = mongoose.model('Rating',ratingModelSchema);
+module.exports = Rating;

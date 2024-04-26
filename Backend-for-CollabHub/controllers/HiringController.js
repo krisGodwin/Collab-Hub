@@ -11,6 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 const {UserModel,UserType} = require("../models/UserModel.js");
 const axios = require('axios');
 const Hiring = require("../models/HiringModel.js");
+const Rating = require("../models/RatingModel.js")
 exports.Register = async(req,res) => {
     try {
         const {name,email,password,Hirer} = req.body;
@@ -47,7 +48,7 @@ exports.Login = async(req,res) => {
         const {email,password} = req.body;
         const HirerPresent = await HiringModel.findOne({email : email});
         if(!HirerPresent){
-            return res.status(400).json({message : "Content Creator not Present"});
+            return res.status(400).json({message : "Sponsor not Present"});
         } 
         const isMatch = await bcrypt.compare(password,HirerPresent.password);
         if(!isMatch){
@@ -185,26 +186,42 @@ exports.GetOnePost = async (req, res) => {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
             }
-            
+            //console.log(id,user_id)
+
 // Recommendations
             const user=await HiringModel.findOne({_id:user_id})
-            console.log(posts[0].id)
+            //console.log(user.name)
+            //console.log(posts[0].id)
             if (user || user.isFirstTime) {
                 const response = await axios.post("http://localhost:5000/prediction", {
                   id:parseFloat (posts[0].id),
                 });
-
               const idsArray = response.data.ids.map(id => id.toString());
-
               // Using $in to find records with matching IDs
               const rec1 = await PostModel.find({ id: { $in: idsArray } });
-              
-
                 user.isFirstTime = false;
              // Push the _ids of rec1 to the recommendations field
                 user.recommendations = rec1.map(post => post._id);
+                
                 // Save the updated user document
                 await user.save()
+                const user_posts = await PostModel.find({ contentCreator: user_id })
+            //console.log(user_posts[0].contenttypes[0])
+            const existingRating = await Rating.findOne({ sponsor_id: id, creator_id: user_id });
+            if (existingRating) {
+                existingRating.click_count++; // Increment click count
+                await existingRating.save(); // Save the updated rating
+            } else {
+            const rating = new Rating({
+                sponsor_id: id, 
+                creator_id: user_id,
+                sponsor_type:user_posts[0].contenttypes[0],
+                creator_type:posts[0].contenttypes[0],
+                Fix_rating:parseInt((0.2*posts[0].Total_Views)+(0.4*posts[0].Subscriber_Count)+(0.2*posts[0].No_of_videos)),
+                click_count: 1
+                });
+            await rating.save();
+            }
             }
             const mappedResult = posts.map(post => ({
                 _id: post._id,

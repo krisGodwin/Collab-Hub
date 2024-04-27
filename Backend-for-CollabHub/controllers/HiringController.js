@@ -70,7 +70,7 @@ exports.Login = async(req,res) => {
                 res.status(200).json({_id : HirerPresent._id,_token : token, _post: false})
             })
         }
-        
+        //console.log()
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})

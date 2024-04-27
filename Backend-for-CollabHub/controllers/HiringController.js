@@ -11,15 +11,26 @@ const { v4: uuidv4 } = require('uuid');
 const {UserModel,UserType} = require("../models/UserModel.js");
 const axios = require('axios');
 const Hiring = require("../models/HiringModel.js");
+<<<<<<< HEAD
 exports.Register = async(req,res) => {
     try {
         const {email,password,Hirer} = req.body;
+=======
+const Rating = require("../models/RatingModel.js")
+exports.Register = async(req,res) => {
+    try {
+        const {name,email,password,Hirer} = req.body;
+>>>>>>> chat
         let Hiring = await HiringModel.findOne({email : email});
         if(Hiring){
             return res.status(400).json({message : "User Already Present"});
         }
         const HiringNew = new HiringModel({
             _id : new mongoose.Types.ObjectId(),
+<<<<<<< HEAD
+=======
+            name: name,
+>>>>>>> chat
             email : email,
             contentCreatorType:Hirer
         });
@@ -46,8 +57,13 @@ exports.Login = async(req,res) => {
         const {email,password} = req.body;
         const HirerPresent = await HiringModel.findOne({email : email});
         if(!HirerPresent){
+<<<<<<< HEAD
             return res.status(400).json({message : "Content Creator not Present"});
         }
+=======
+            return res.status(400).json({message : "Sponsor not Present"});
+        } 
+>>>>>>> chat
         const isMatch = await bcrypt.compare(password,HirerPresent.password);
         if(!isMatch){
             return res.status(400).json({message : "Incorrect password"});
@@ -62,15 +78,26 @@ exports.Login = async(req,res) => {
         if(Postexists){
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
+<<<<<<< HEAD
                 res.status(200).json({_id : HirerPresent._id,_token : token, _post: true})
+=======
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: true,name: HirerPresent.name})
+>>>>>>> chat
             })
         } else {
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
+<<<<<<< HEAD
                 res.status(200).json({_id : HirerPresent._id,_token : token, _post: false})
             })
         }
         //console.log()
+=======
+                res.status(200).json({_id : HirerPresent._id,_token : token, _post: false, name: HirerPresent.name})
+            })
+        }
+        
+>>>>>>> chat
     } catch (error) {
         console.error(error);
         return res.status(500).json({message : "Could not login"})
@@ -100,6 +127,43 @@ exports.Home = async(req,res) => {
     }
     
 }
+<<<<<<< HEAD
+=======
+exports.GetContent = async(req, res) => {
+    const { user_id } = req.query
+    const posts = await PostModel.find({ contentCreator : user_id})
+    return res.status(200).json({data: posts})
+}
+
+exports.UpdatePost = async(req, res) => {
+    const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,totalviews,contentCreatorType} = req.body;
+    const image_file = req.body.filename;
+    await PostModel.deleteMany({ contentCreator: req.userData['HH'].id });
+    const result = await cloudinary.uploader.upload(image_file, {
+        folder: "products",
+        // width: 300,
+        // crop: "scale"
+    })
+    const id=uuidv4()
+
+    const ContentArray = Array.isArray(contenttypes) ? contenttypes : [contenttypes];
+    console.log(ContentArray[0])
+        const newPost = new PostModel({
+            id:id,
+            title : title,
+            description : description,
+            youtube_link: ytlink,
+            instagram_link: instlink,
+            image_url : result.url,
+            contenttypes : ContentArray,
+            contentCreator : req.userData["HH"].id,
+            contentCreatorType: contentCreatorType
+        });
+        await newPost.save() 
+        return res.status(204).json({})
+    
+}
+>>>>>>> chat
 exports.AddContent = async(req,res) => {
     console.log(req.cookies.jwt)
     const {title,description,ytlink,instlink,contenttypes, contentCreatorType} = req.body;
@@ -130,6 +194,7 @@ exports.AddContent = async(req,res) => {
 exports.GetAlPosts = async(req, res) => {
     const { user_id } = req.query; 
     const hirer=await Hiring.find({_id:user_id})
+<<<<<<< HEAD
     console.log(hirer[0].isFirstTime)
     if(hirer[0].isFirstTime){
         const posts = await PostModel.find({})
@@ -137,6 +202,15 @@ exports.GetAlPosts = async(req, res) => {
 
     }
     else{
+=======
+    //console.log(hirer[0].isFirstTime)
+    if(hirer[0].isFirstTime){
+        const posts = await PostModel.find({contentCreatorType:"CC" })
+        return res.status(200).json({data: posts})
+
+    } 
+    else{ 
+>>>>>>> chat
         const posts = await hirer[0].populate('recommendations')
         // console.log(posts.recommendations)
         return res.status(200).json({data: posts.recommendations})
@@ -150,6 +224,7 @@ exports.GetOnePost = async (req, res) => {
                 console.error(err)
                 return res.status(400).json({ message: "Could not get the posts" });
             }
+<<<<<<< HEAD
             
 // Recommendations
             const user=await HiringModel.findOne({_id:user_id})
@@ -170,10 +245,56 @@ exports.GetOnePost = async (req, res) => {
                 user.recommendations = rec1.map(post => post._id);
                 // Save the updated user document
                 await user.save()
+=======
+            //console.log(id,user_id)
+
+// Recommendations
+            const user=await HiringModel.findOne({_id:user_id})
+            //console.log(user.name)
+            //console.log(posts[0].id)
+            if (user || user.isFirstTime) {
+                //console.log(posts[0]._id)
+                const response = await axios.post("http://localhost:5000/prediction", {
+                  id:posts[0]._id,
+                });
+
+              const idsArray = response.data.ids.map(id => id.toString());
+              // Using $in to find records with matching IDs
+              const rec1 = await PostModel.find({ _id: { $in: idsArray } });
+              //console.log(rec1)
+                user.isFirstTime = false;
+             // Push the _ids of rec1 to the recommendations field
+                user.recommendations = rec1.map(post => post._id);
+                
+                // Save the updated user document
+                await user.save()
+                const user_posts = await PostModel.find({ contentCreator: user_id })
+            //console.log(user_posts[0].contenttypes[0])
+            const existingRating = await Rating.findOne({ sponsor_id: user_id, creator_id: id });
+            //console.log(id)
+            if (existingRating) {
+                existingRating.click_count++; // Increment click count
+                await existingRating.save(); // Save the updated rating
+            } else {
+            const rating = new Rating({
+                sponsor_id: user_id, 
+                creator_id: id,
+                sponsor_type:user_posts[0].contenttypes[0],
+                creator_type:posts[0].contenttypes[0],
+                Fix_rating:parseInt((0.2*posts[0].Total_Views)+(0.4*posts[0].Subscriber_Count)+(0.2*posts[0].No_of_videos)),
+                click_count: 1
+                });
+            await rating.save();
+            }
+>>>>>>> chat
             }
             const mappedResult = posts.map(post => ({
                 _id: post._id,
                 title: post.title,
+<<<<<<< HEAD
+=======
+                userid: post.contentCreator,
+>>>>>>> chat
                 description: post.description,
                 youtube_link: post.youtube_link,
                 instagram_link: post.instagra_link,

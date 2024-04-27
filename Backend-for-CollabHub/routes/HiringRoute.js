@@ -11,5 +11,10 @@ router.get("/home",AuthCheckerHiring,HiringController.Home);
 router.post("/addpost",AuthCheckerHiring,fileUpload.single("image"),HiringController.AddContent);
 router.get("/getonepost",HiringController.GetOnePost)
 router.get("/getallposts",HiringController.GetAlPosts)
+<<<<<<< HEAD
+=======
+router.post("/updatepost",AuthCheckerHiring,fileUpload.single("image"),HiringController.UpdatePost)
+router.get("/getcontent",HiringController.GetContent)
+>>>>>>> chat
 router.post("/:postId",AuthCheckerHiring,HiringController.Counter);
 module.exports = router;

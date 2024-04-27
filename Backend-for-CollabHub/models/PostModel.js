@@ -14,6 +14,13 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+<<<<<<< HEAD
+=======
+    image_url: {
+        type: String,
+        required: true,
+    },
+>>>>>>> chat
     youtube_link: {
         type: String,
         required: true,
@@ -22,9 +29,22 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+<<<<<<< HEAD
     image_url: {
         type: String,
         required: true,
+=======
+    // Subscriber_Count:{
+    //     type:Number,
+    //     required:true
+    // },
+    // No_of_videos:{
+    //     type:Number,
+    //     required:true
+    // },
+    Total_Views:{
+        type:String,
+>>>>>>> chat
     },
     Subscriber_Count:{
         type:String,

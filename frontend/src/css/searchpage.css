@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+=======
+>>>>>>> chat
 .search-div {
     padding-bottom: 150px;
     padding-top: 100px;

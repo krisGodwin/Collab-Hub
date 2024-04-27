@@ -40,6 +40,10 @@ const LoginPage = () => {
               if(response.status === 200){
                 toast.success("User Logged in");
                 localStorage.setItem('user', "CC")
+<<<<<<< HEAD
+=======
+                localStorage.setItem('username',response.data.name)
+>>>>>>> chat
                 localStorage.setItem("token",response.data._token)
                 localStorage.setItem("user_id",response.data._id)
                 localStorage.setItem("post",response.data._post)
@@ -71,6 +75,10 @@ const LoginPage = () => {
             if(response.status=== 200){
               toast.success("User Logged in");
               localStorage.setItem('user', "HH")
+<<<<<<< HEAD
+=======
+              localStorage.setItem('username',response.data.name)
+>>>>>>> chat
               localStorage.setItem("token",response.data._token)
               localStorage.setItem("user_id",response.data._id)
               localStorage.setItem("post",response.data._post)
@@ -115,7 +123,11 @@ const LoginPage = () => {
           <>
             <Navbar />
             <div className="signup-container">
+<<<<<<< HEAD
             <div className="button-div">
+=======
+        <div className="button-div">
+>>>>>>> chat
                 <button  onClick={changeToCreator}>Creator</button>
                 <button onClick={changeToSponsor}>Sponsor</button>
             </div>

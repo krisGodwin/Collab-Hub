@@ -8,8 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
 const Signup = () => {
+<<<<<<< HEAD
 
   const [email, setEmail] = useState('');
+=======
+        const [name, setName] = useState('')
+        const [email, setEmail] = useState('');
+>>>>>>> chat
         const [password, setPassword] = useState('');
       
         const handleEmailChange = (e) => {
@@ -20,6 +25,13 @@ const Signup = () => {
           setPassword(e.target.value);
         };
 
+<<<<<<< HEAD
+=======
+        const handleNameChange = (e) => {
+          setName(e.target.value);
+        };
+
+>>>>>>> chat
         const REGISTER_CC_URL = "http://localhost:8000/content/register"
 
         const REGISTER_HH_URL = "http://localhost:8000/hiring/register"
@@ -52,6 +64,10 @@ const Signup = () => {
           }
 
             axios.post(REGISTER_CC_URL, {
+<<<<<<< HEAD
+=======
+              name,
+>>>>>>> chat
               email,
               password,
               contentCreator
@@ -75,6 +91,10 @@ const Signup = () => {
         const handleSubmitHH = (e) => {
           e.preventDefault();
           axios.post(REGISTER_HH_URL, {
+<<<<<<< HEAD
+=======
+            name,
+>>>>>>> chat
             email,
             password,
             Hirer
@@ -117,6 +137,21 @@ const Signup = () => {
             <form onSubmit={handleSubmitCC} className="login-form">
             <div className="input-block">
                     <input
+<<<<<<< HEAD
+=======
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      name="email"
+                      id="input-text"
+                      required
+                      spellCheck="false"
+                    />
+                    <span className="placeholder">UserName</span>
+            </div>
+            <div className="input-block">
+                    <input
+>>>>>>> chat
                       type="email"
                       value={email}
                       onChange={handleEmailChange}
@@ -152,6 +187,21 @@ const Signup = () => {
          <form onSubmit={handleSubmitHH} className="login-form">
          <div className="input-block">
                     <input
+<<<<<<< HEAD
+=======
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      name="email"
+                      id="input-text"
+                      required
+                      spellCheck="false"
+                    />
+                    <span className="placeholder">UserName</span>
+            </div>
+         <div className="input-block">
+                    <input
+>>>>>>> chat
                       type="email"
                       value={email}
                       onChange={handleEmailChange}

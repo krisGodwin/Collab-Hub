@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 // import MultiSelectCheckBox from 'react-multiselect-checkboxes';
@@ -6,17 +6,14 @@ import { toast } from "react-toastify";
 import axios from 'axios';
 import '../css/profile.css';
 
-const Profile = () => {
+const UpdateProfile = () => {
   const [title, setName] = useState('');
   const [description, setDescription] = useState('');
   const [ytlink, setYtLink] = useState('')
   const[instlink, setInstLink] = useState('')
   const[totalvideos, setTotalVideos] = useState('')
   const[totalsubscriber, setTotalSubscribers] = useState('')
-<<<<<<< HEAD
-=======
   const[totalviews, setTotalViews] = useState('')
->>>>>>> chat
   const [checked, setChecked] = useState([]);
   const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -25,18 +22,54 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-  const PROFILE_CC_URL = "http://localhost:8000/content/addpost";
+  const PROFILE_CC_URL = "http://localhost:8000/content/updatepost";
 
-  const PROFILE_HH_URL = "http://localhost:8000/hiring/addpost";
+  const PROFILE_HH_URL = "http://localhost:8000/hiring/updatepost";
 
   const checkList = ["Tech", "Music", "Sport", "Entertainment"];
 
   const contentCreatorType = localStorage.getItem("user")
+  const user_id = localStorage.getItem("user_id")
 
-<<<<<<< HEAD
-=======
   
->>>>>>> chat
+  useEffect(() => {
+    if(contentCreatorType === "CC") {
+        axios.get(`http://localhost:8000/content/getcontent`,{
+        params: {
+            user_id: user_id
+        }, 
+    })
+      .then(response => {
+        const { data } = response;
+        console.log(data.data[0])
+          setName(data.data[0].title);
+          setDescription(data.data[0].description);
+          setYtLink(data.data[0].youtube_link);
+          setInstLink(data.data[0].instagram_link);
+          setTotalVideos(data.data[0].No_of_videos);
+          setTotalSubscribers(data.data[0].Subscriber_Count);
+          setTotalViews(data.data[0].Total_Views);
+        }
+      )
+      .catch(error => console.error(error));
+    } else {
+        axios.get(`http://localhost:8000/hiring/getcontent`,{
+        params: {
+            user_id: user_id
+        }, 
+    })
+      .then(response => {
+        const { data } = response;
+        console.log(data.data[0])
+          setName(data.data[0].title);
+          setDescription(data.data[0].description);
+          setYtLink(data.data[0].youtube_link);
+          setInstLink(data.data[0].instagram_link);
+        }
+      )
+      .catch(error => console.error(error));
+    }
+  }, [user_id, contentCreatorType]);
   // const goCreator = () => {
   //   navigate('/recommendation');
   // };
@@ -86,10 +119,7 @@ const Profile = () => {
         instlink,
         totalvideos,
         totalsubscriber,
-<<<<<<< HEAD
-=======
         totalviews,
->>>>>>> chat
         contenttypes,
         filename,
         contentCreatorType,
@@ -116,11 +146,6 @@ const Profile = () => {
         description,
         ytlink,
         instlink,
-<<<<<<< HEAD
-        totalvideos,
-        totalsubscriber,
-=======
->>>>>>> chat
         contenttypes,
         filename,
         contentCreatorType,
@@ -165,14 +190,9 @@ const Profile = () => {
   const handleTotalVideosChange = (e) => {
     setTotalVideos(e.target.value)
   }
-<<<<<<< HEAD
-
-
-=======
   const handleTotalViewsChange = (e) => {
     setTotalViews(e.target.value)
   }
->>>>>>> chat
 
   // const handleDropdownChange = (selected) => {
   //   setSelectedOptions(selected.map(option => option.value));
@@ -181,11 +201,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-<<<<<<< HEAD
-      <div className="loginDiv">
-=======
       { contentCreatorType === "CC" ? <div className="loginDiv">
->>>>>>> chat
         <div className="profile-login-container">
           <img src="./logo.png" alt="" />
           <h2 className="login-title">Create Your Post</h2>
@@ -271,8 +287,6 @@ const Profile = () => {
               />
               <span className="placeholder">Total Subscribers</span>
             </div>
-<<<<<<< HEAD
-=======
             <div className="input-block">
               <input
                 type="text"
@@ -284,7 +298,6 @@ const Profile = () => {
               />
               <span className="placeholder">Total Views</span>
             </div>
->>>>>>> chat
             <div className="app">
               <div className="checkList">
                 <div className="title">Select your content types</div>
@@ -311,29 +324,11 @@ const Profile = () => {
                 <label className="form-label" htmlFor="form4Example2">Image</label>
             </div>
             <img className="img-fluid" src={filename} alt="" />
-<<<<<<< HEAD
-            {/* <div className="dropdown-checkboxes">
-              <MultiSelectCheckBox
-                options={checkList.map(item => ({ label: item, value: item }))}
-                onChange={handleDropdownChange}
-                placeholder="Select options"
-              />
-            </div> */}
-=======
->>>>>>> chat
             <button type="submit" className="login-button">
               Post
             </button>
           </form>
         </div>
-<<<<<<< HEAD
-      </div>
-      {/* <div className="temp">
-        <button onClick={goCreator} className="reccomendation-button">
-          Browse Recommendations
-        </button>
-      </div> */}
-=======
       </div> 
       :
       <div className="loginDiv">
@@ -421,9 +416,8 @@ const Profile = () => {
         </div>
       </div>}
       
->>>>>>> chat
     </>
   );
 };
 
-export default Profile;
+export default UpdateProfile;

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Import React and any other necessary dependencies
 import React from 'react';
 import Navbar from '../components/Navbar';
@@ -46,11 +47,18 @@ const Footer = () => {
 };
 
 // Homepage Component
+=======
+import React from 'react'
+import Navbar from '../components/Navbar'
+import "../css/homepage.css"
+
+>>>>>>> chat
 const Homepage = () => {
 
 
   return (
     <>
+<<<<<<< HEAD
 <<<<<<< HEAD
       {/* Navigation Bar */}
       <Navbar />
@@ -85,3 +93,18 @@ const Homepage = () => {
 }
 
 export default Homepage;
+=======
+        <Navbar />
+          <div className='home-div'>
+            <div className="initial-content">
+              <h1>Collab Hub</h1>
+              <p>An AI-driven tool to enhance collaborations between influencers an sponsors</p>
+            </div>
+              <p>Markup that will be revealed on scroll</p>
+          </div>
+    </>
+  )
+}
+
+export default Homepage
+>>>>>>> chat

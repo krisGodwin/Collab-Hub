@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Homepage.css */
 
 .hero-section {
@@ -24,6 +25,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+=======
+>>>>>>> chat
 h1{
     color: white;
 }
@@ -46,5 +49,8 @@ p{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
 >>>>>>> temp
+=======
+>>>>>>> chat
 }

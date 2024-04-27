@@ -15,21 +15,14 @@ const axios = require('axios');
 //const MessageModel = require("../models/MessageModel.js");
 exports.Register = async(req,res) => {
     try {
-<<<<<<< HEAD
-        const {email,password,contentCreator,contenttype} = req.body;
-=======
         const {name,email,password,contentCreator,contenttype} = req.body;
->>>>>>> chat
         let creator = await ContentCreatorModel.findOne({email : email});
         if(creator){
             return res.status(400).json({message : "User Already Present"});
         }
         const creatorNew = new ContentCreatorModel({
             _id : new mongoose.Types.ObjectId(),
-<<<<<<< HEAD
-=======
             name: name,
->>>>>>> chat
             email : email,
             contentCreatorType:contentCreator
         });
@@ -81,20 +74,12 @@ exports.Login = async(req,res) => {
         if(Postexists){
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-<<<<<<< HEAD
-                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: true})
-=======
                 res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: true, name: ContentCreatorPresent.name})
->>>>>>> chat
             })
         } else {
             jwt.sign(payload,process.env.JWT_KEY,{expiresIn : 3600},(err,token)=>{
                 if (err) throw err;
-<<<<<<< HEAD
-                res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: false})
-=======
                 res.status(200).json({_id : ContentCreatorPresent._id,_token : token, _post: false, name: ContentCreatorPresent.name})
->>>>>>> chat
             })
         }
         
@@ -109,11 +94,7 @@ exports.Profile = async(req,res) => {
 }
 exports.AddContent = async(req,res) => {
     console.log(req.cookies.jwt)
-<<<<<<< HEAD
-    const {title,description,ytlink,instlink,totalvideos,totalsubscriber,contenttypes,contentCreatorType} = req.body;
-=======
     const {title,description,contenttypes,ytlink,instlink,totalvideos,totalsubscriber,totalviews,contentCreatorType} = req.body;
->>>>>>> chat
     const image_file = req.body.filename;
     const result = await cloudinary.uploader.upload(image_file, {
         folder: "products",
@@ -131,8 +112,6 @@ exports.AddContent = async(req,res) => {
             instagram_link: instlink,
             Subscriber_Count: totalsubscriber,
             No_of_videos: totalvideos,
-<<<<<<< HEAD
-=======
             Total_Views:totalviews,
             image_url : result.url,
             contenttypes : ContentArray,
@@ -178,7 +157,6 @@ exports.UpdatePost = async(req, res) => {
             Subscriber_Count: totalsubscriber,
             No_of_videos: totalvideos,
             Total_Views:totalviews,
->>>>>>> chat
             image_url : result.url,
             contenttypes : ContentArray,
             contentCreator : req.userData["CC"].id,
@@ -211,11 +189,7 @@ exports.SearchPosts = async(req, res) => {
 }
 
 exports.GetAllPosts = async(req, res) => {
-<<<<<<< HEAD
-    const posts = await PostsModel.find({ contentCreatorType:"CC" })
-=======
     const posts = await PostsModel.find({ contentCreatorType:"HH" })
->>>>>>> chat
     return res.status(200).json({data: posts})
 }
 
@@ -229,10 +203,7 @@ exports.GetOnePost = async (req, res) => {
             }
             const mappedResult = posts.map(post => ({
                 _id: post._id,
-<<<<<<< HEAD
-=======
                 userid: post.contentCreator,
->>>>>>> chat
                 title: post.title,
                 description: post.description,
                 youtube_link:post.youtube_link,
@@ -246,17 +217,9 @@ exports.GetOnePost = async (req, res) => {
 
 exports.fetchRecommendedPosts = async (req, res) => {
     const recommendedIds = req.body.recommendedIds; // Assuming you're getting an array of recommended IDs from req.body
-<<<<<<< HEAD
-
     try {
         // Find posts with IDs in the recommendedIds array
         const recommendedPosts = await PostModel.find({ _id: { $in: recommendedIds } });
-        
-=======
-    try {
-        // Find posts with IDs in the recommendedIds array
-        const recommendedPosts = await PostModel.find({ _id: { $in: recommendedIds } });
->>>>>>> chat
         // Send the recommended posts as a response
         res.json({ recommendedPosts });
     } catch (error) {

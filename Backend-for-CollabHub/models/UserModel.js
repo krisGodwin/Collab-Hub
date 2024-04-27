@@ -6,13 +6,10 @@ const UserType = Object.freeze({
 });
 
 const UserSchema = new mongoose.Schema({
-<<<<<<< HEAD
-=======
     name:{
         type: String,
         required: true, 
     },
->>>>>>> chat
     email: {
         type: String,
         required: true,

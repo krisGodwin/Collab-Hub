@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* Homepage.css */
-
-.hero-section {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  color: aliceblue;
-}
-
-.featured-creators {
-  background-color: #e6e6e6;
-  padding: 20px;
-  text-align: center;
-}
-
-.footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-=======
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-=======
->>>>>>> chat
 h1{
     color: white;
 }
@@ -49,8 +20,4 @@ p{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
->>>>>>> temp
-=======
->>>>>>> chat
 }

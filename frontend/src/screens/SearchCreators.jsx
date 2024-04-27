@@ -4,11 +4,6 @@ import '../css/searchpage.css'
 import data from '../data.js'
 import Card from '../components/Card.jsx'
 import axios from 'axios';
-<<<<<<< HEAD
-// import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-=======
->>>>>>> chat
 import { useState, useEffect, useCallback} from 'react'
 
 
@@ -19,10 +14,6 @@ const SearchCreators = () => {
   const [filteredData, setFilteredData] = useState(data);
   const [userposts, setUserposts] = useState([])
 
-<<<<<<< HEAD
-
-=======
->>>>>>> chat
   // eslint-disable-next-line
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -37,11 +28,7 @@ const SearchCreators = () => {
   const POST_HH_URL = "http://localhost:8000/hiring/getallposts"
 
   const contentCreatorType = localStorage.getItem("user")
-<<<<<<< HEAD
-  // console.log(contentCreatorType)
-=======
   console.log(contentCreatorType)
->>>>>>> chat
   const getData = useCallback(async () => {
     if (contentCreatorType === "CC") {
       await axios.get(POST_CC_URL,{
@@ -51,10 +38,6 @@ const SearchCreators = () => {
     }
         )
         .then((response) => {
-<<<<<<< HEAD
-          console.log(response)
-=======
->>>>>>> chat
           setUserposts(response.data.data)
         })
         .catch((err) => {
@@ -93,10 +76,6 @@ const SearchCreators = () => {
     const { data } = await axios.get(`http://localhost:8000/content/searchposts?title=${searchValue}`)
     console.log(data)
     setUserposts(data.searchResults)
-<<<<<<< HEAD
-    console.log(userposts.length)
-=======
->>>>>>> chat
   }
 
 
@@ -113,16 +92,6 @@ const SearchCreators = () => {
           />
           <button class="search-button">🔍</button>
       </div>
-<<<<<<< HEAD
-      { userposts.length === 0 ? <div class="error-div"><img src="./error.png" alt=""></img></div> 
-      : 
-      <div className='search-div'>
-        {userposts.map((product, index) => (
-          <Card key={index} creator={product} />
-        ))}
-        </div>}
-        
-=======
       
         
         {userposts.length === 0 ? <div class="error-div"><img src="./error.png" alt=""></img></div>
@@ -133,7 +102,6 @@ const SearchCreators = () => {
         ))}
         </div>
       }
->>>>>>> chat
     </>
   )
 }

@@ -13,10 +13,7 @@ const Profile = () => {
   const[instlink, setInstLink] = useState('')
   const[totalvideos, setTotalVideos] = useState('')
   const[totalsubscriber, setTotalSubscribers] = useState('')
-<<<<<<< HEAD
-=======
   const[totalviews, setTotalViews] = useState('')
->>>>>>> chat
   const [checked, setChecked] = useState([]);
   const [filename, setImage] = useState('');
   // const [selectedOptions, setSelectedOptions] = useState([]);
@@ -33,10 +30,7 @@ const Profile = () => {
 
   const contentCreatorType = localStorage.getItem("user")
 
-<<<<<<< HEAD
-=======
   
->>>>>>> chat
   // const goCreator = () => {
   //   navigate('/recommendation');
   // };
@@ -86,10 +80,7 @@ const Profile = () => {
         instlink,
         totalvideos,
         totalsubscriber,
-<<<<<<< HEAD
-=======
         totalviews,
->>>>>>> chat
         contenttypes,
         filename,
         contentCreatorType,
@@ -116,11 +107,6 @@ const Profile = () => {
         description,
         ytlink,
         instlink,
-<<<<<<< HEAD
-        totalvideos,
-        totalsubscriber,
-=======
->>>>>>> chat
         contenttypes,
         filename,
         contentCreatorType,
@@ -165,14 +151,9 @@ const Profile = () => {
   const handleTotalVideosChange = (e) => {
     setTotalVideos(e.target.value)
   }
-<<<<<<< HEAD
-
-
-=======
   const handleTotalViewsChange = (e) => {
     setTotalViews(e.target.value)
   }
->>>>>>> chat
 
   // const handleDropdownChange = (selected) => {
   //   setSelectedOptions(selected.map(option => option.value));
@@ -181,11 +162,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-<<<<<<< HEAD
-      <div className="loginDiv">
-=======
       { contentCreatorType === "CC" ? <div className="loginDiv">
->>>>>>> chat
         <div className="profile-login-container">
           <img src="./logo.png" alt="" />
           <h2 className="login-title">Create Your Post</h2>
@@ -271,8 +248,6 @@ const Profile = () => {
               />
               <span className="placeholder">Total Subscribers</span>
             </div>
-<<<<<<< HEAD
-=======
             <div className="input-block">
               <input
                 type="text"
@@ -284,7 +259,6 @@ const Profile = () => {
               />
               <span className="placeholder">Total Views</span>
             </div>
->>>>>>> chat
             <div className="app">
               <div className="checkList">
                 <div className="title">Select your content types</div>
@@ -311,29 +285,11 @@ const Profile = () => {
                 <label className="form-label" htmlFor="form4Example2">Image</label>
             </div>
             <img className="img-fluid" src={filename} alt="" />
-<<<<<<< HEAD
-            {/* <div className="dropdown-checkboxes">
-              <MultiSelectCheckBox
-                options={checkList.map(item => ({ label: item, value: item }))}
-                onChange={handleDropdownChange}
-                placeholder="Select options"
-              />
-            </div> */}
-=======
->>>>>>> chat
             <button type="submit" className="login-button">
               Post
             </button>
           </form>
         </div>
-<<<<<<< HEAD
-      </div>
-      {/* <div className="temp">
-        <button onClick={goCreator} className="reccomendation-button">
-          Browse Recommendations
-        </button>
-      </div> */}
-=======
       </div> 
       :
       <div className="loginDiv">
@@ -421,7 +377,6 @@ const Profile = () => {
         </div>
       </div>}
       
->>>>>>> chat
     </>
   );
 };

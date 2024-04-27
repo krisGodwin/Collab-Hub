@@ -1,9 +1,13 @@
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 * {
   background-color: #0A1828 !important;
 }
 
 .signup-container {
-    padding-top: 150px;
+    padding-top: 30px;
     justify-content: center;
 }
 

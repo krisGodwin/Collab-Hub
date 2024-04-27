@@ -11,7 +11,7 @@ const data = [
         image: '/markiplier.jpg',
         title:"Markiplier",
         content:["Gaming","Entertainment","Educational"],
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+        description:"Hi, I'm Markiplier. I make videos. From quality content to meme-able garbage, from scary games to full-on interactive movies you'll find it all. You will, actually. I have over 5000 videos so Im sure theres something youd like. Maybe you like horror games, or funny games, or comedy sketches, or animations, or compilations, or reactions, or reviews, or challenges, or cryptic lore, or mind-crippling ennui, or stuff-that-is-guaranteed-to-probably-make-you-cry? Whatever you're into I'm sure there's something for you down in the briny deep of my video page. So why not dive in?Or don't. Life is yours to choose after all.",
     },
     {
         id: 3,
@@ -22,15 +22,15 @@ const data = [
     },
     {
         id: 4,
-        image: '/pewds.jpg',
-        title:"Pewdiepie",
+        image: '/xqc.jpg',
+        title:"xQc",
         content:["Gaming","Entertainment","Educational"],
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
     },
     {
         id: 5,
-        image: '/markiplier.jpg',
-        title:"Markiplier",
+        image: '/mrbeast.jpg',
+        title:"MrBeast",
         content:["Gaming","Educational"],
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
     },

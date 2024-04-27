@@ -1,3 +1,7 @@
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 * {
   margin: 0;
   padding: 0;
@@ -11,8 +15,11 @@
   align-items: center; /* Center items vertically */
   width: 100%;
   padding: 20px 30px;
-  border-bottom: black 1px solid;
+  /* border-bottom: black 1px solid; */
+  position: fixed;
+  top: 0;
   color: #BFA181;
+  z-index: 1000
 }
 .navbar .logo h2{
   background-color: #0A1828;;
@@ -73,3 +80,9 @@ ul li::before {
 ul li:hover::before {
   width: 100%;
 }
+
+.disabled {
+  pointer-events: none;
+  display: none;
+}
+

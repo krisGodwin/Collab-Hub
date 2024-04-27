@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import '../css/signup.css'
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
 const Signup = () => {
@@ -21,30 +23,52 @@ const Signup = () => {
         const REGISTER_CC_URL = "http://localhost:8000/content/register"
 
         const REGISTER_HH_URL = "http://localhost:8000/hiring/register"
-
+        const contentCreator="CC"
+        const Hirer="HH"
         const navigate = useNavigate();
 
+        const notifyA = (msg) => toast.error(msg);
+        const notifyB = (msg) => toast.success(msg);
+      
+        // eslint-disable-next-line
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        // eslint-disable-next-line
+        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
         const goSearchPage = () => {
-          navigate('/search')
+          navigate('/login')
         }
       
         const handleSubmitCC = (e) => {
           e.preventDefault();
+          if (!emailRegex.test(email)) {
+            notifyA("Invalid email");
+            return;
+          } else if (!passRegex.test(password)) {
+            notifyA(
+              "Password must contain at least 8 characters, including at least 1 number and 1 includes both lower and uppercase letters and special characters for example #,?,!"
+            );
+            return;
+          }
+
             axios.post(REGISTER_CC_URL, {
               email,
-              password
+              password,
+              contentCreator
             })
             .then((response) => {
               if(response.status=== 200){
                 console.log(response.data.id)
                 console.log(response.status)
                 console.log(response.data.message)
+                notifyB("Account created")
                 goSearchPage();
               }
               return response.status
             })
             .catch((error) => {
               console.log(error)
+              notifyA(error.response.data.message)
             })
         };
 
@@ -52,7 +76,8 @@ const Signup = () => {
           e.preventDefault();
           axios.post(REGISTER_HH_URL, {
             email,
-            password
+            password,
+            Hirer
           })
           .then((response) => {
             console.log(response._id)
@@ -61,6 +86,7 @@ const Signup = () => {
           })
           .catch((error) => {
             console.log(error)
+            notifyA(error.response.data.message)
           })
         };
 

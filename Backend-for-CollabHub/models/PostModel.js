@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const ContentCreator = require("../models/ContentCreatorModel.js")
 const PostSchema = new mongoose.Schema({
+    id:{
+        type:String,
+        required:true,
+        unique:true,
+    },
     title: {
         type: String,
         required: true,
@@ -9,9 +14,25 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    youtube_link: {
+        type: String,
+        required: true,
+    },
+    instagram_link: {
+        type: String,
+        required: true,
+    },
     image_url: {
         type: String,
         required: true,
+    },
+    Subscriber_Count:{
+        type:String,
+        default: "None"
+    },
+    No_of_videos:{
+        type:String,
+        default: "None"
     },
     contenttypes: {
         type: [String],
@@ -22,6 +43,10 @@ const PostSchema = new mongoose.Schema({
         ref: 'ContentCreator',
         required: true,
     },
+    contentCreatorType:{
+        type: String,
+        required: true,
+    }
 },
 {
     timestamps: true

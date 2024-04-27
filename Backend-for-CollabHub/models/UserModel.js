@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema({
         enum: Object.values(UserType),
         required: true,
     },
+    contentCreatorType:{
+        type: String,
+        required: true,
+    }
 });
 
 const User = mongoose.model('User', UserSchema);

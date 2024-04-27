@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 // Import React and any other necessary dependencies
 import React from 'react';
 import Navbar from '../components/Navbar';
 import '../css/homepage.css'; // Import the CSS file
+=======
+import React from 'react'
+import Navbar from '../components/Navbar'
+import "../css/homepage.css"
+import Zoom from 'react-reveal/Zoom';
+>>>>>>> temp
 
 // HeroSection Component
 const HeroSection = ({ title, subtitle }) => {
@@ -40,8 +47,11 @@ const Footer = () => {
 
 // Homepage Component
 const Homepage = () => {
+
+
   return (
     <>
+<<<<<<< HEAD
       {/* Navigation Bar */}
       <Navbar />
 
@@ -56,6 +66,20 @@ const Homepage = () => {
 
       {/* Footer */}
       <Footer />
+=======
+        <Navbar />
+          <div className='home-div'>
+            <div className="initial-content">
+              <Zoom>
+              <h1>Collab Hub</h1>
+              <p>An AI-driven tool to enhance collaborations between influencers an sponsors</p>
+              </Zoom>
+            </div>
+            <Zoom>
+              <p>Markup that will be revealed on scroll</p>
+            </Zoom>
+          </div>
+>>>>>>> temp
     </>
   );
 }

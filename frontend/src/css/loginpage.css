@@ -1,6 +1,10 @@
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 .loginDiv {
     padding-bottom: 150px;
-    padding-top: 150px;
+    padding-top: 100px;
     background-color: #0A1828 !important;
   }
   
